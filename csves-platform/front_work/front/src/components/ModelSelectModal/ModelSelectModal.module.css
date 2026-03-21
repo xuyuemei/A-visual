@@ -1,0 +1,29 @@
+.modelList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 16px 8px;
+}
+
+.modelInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.source {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.disabled {
+  color: #b0b0b0;
+}

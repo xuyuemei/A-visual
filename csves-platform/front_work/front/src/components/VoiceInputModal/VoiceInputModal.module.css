@@ -1,0 +1,348 @@
+/* 背景遮罩：更像“科技屏幕” */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  /* 深色渐变 + 轻微噪点的感觉（纯 CSS 做近似） */
+  background:
+    radial-gradient(1200px 800px at 20% 10%, rgba(59, 130, 246, 0.18), transparent 60%),
+    radial-gradient(900px 700px at 80% 20%, rgba(168, 85, 247, 0.14), transparent 55%),
+    radial-gradient(900px 900px at 50% 100%, rgba(34, 197, 94, 0.08), transparent 55%),
+    rgba(2, 6, 23, 0.68);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+
+  /* 进入时更柔和 */
+  animation: overlayIn 180ms ease-out;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 弹窗主体：玻璃拟态 + 高光边 */
+.modal {
+  width: min(760px, 96vw);
+  border-radius: 18px;
+  overflow: hidden;
+
+  /* 玻璃层 */
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86));
+  border: 1px solid rgba(255, 255, 255, 0.42);
+
+  /* 外阴影更“漂浮”，但不脏 */
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.22),
+    0 40px 90px rgba(15, 23, 42, 0.35);
+
+  position: relative;
+}
+
+/* 顶部柔光边缘 */
+.modal::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(59,130,246,0.35),
+    rgba(168,85,247,0.25),
+    rgba(255,255,255,0.10)
+  );
+  filter: blur(18px);
+  opacity: 0.55;
+}
+
+/* 细网格（科技感来源之一） */
+.modal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(2,6,23,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2,6,23,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.18;
+  mask-image: radial-gradient(ellipse at 50% 20%, black 35%, transparent 70%);
+}
+
+/* Header：更强层次 + 左侧渐变线 */
+.header {
+  position: relative;
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  background: rgba(255,255,255,0.60);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+/* 左侧装饰条 */
+.header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #2563eb, #a855f7);
+  opacity: 0.85;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 850;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(51, 65, 85, 0.92);
+}
+
+/* 关闭按钮：更像“图标按钮” */
+.closeBtn {
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 16px;
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 12px;
+  transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+.closeBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 10px 22px rgba(15,23,42,0.10);
+}
+
+.error {
+  margin: 12px 16px 0;
+  color: #b42318;
+  font-size: 13px;
+  background: rgba(255, 244, 242, 0.92);
+  border: 1px solid rgba(255, 209, 204, 0.95);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+/* 中间区域 */
+.center {
+  padding: 18px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 麦克风卡：带“内发光” */
+.mic {
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+
+  background:
+    radial-gradient(70px 70px at 30% 25%, rgba(59,130,246,0.18), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,250,255,0.85));
+
+  box-shadow:
+    0 16px 34px rgba(15, 23, 42, 0.10),
+    inset 0 1px 0 rgba(255,255,255,0.65);
+
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+/* 麦克风主体：更“图标化” */
+.micInner {
+  width: 22px;
+  height: 34px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #2563eb, #1d4ed8);
+  position: relative;
+  box-shadow: 0 10px 18px rgba(37, 99, 235, 0.22);
+}
+
+/* 录音态：呼吸光圈 + 扫描光 */
+.micActive::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 26px;
+  border: 2px solid rgba(37, 99, 235, 0.25);
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+.micActive::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 24px;
+  background: conic-gradient(
+    from 180deg,
+    rgba(59,130,246,0.00),
+    rgba(59,130,246,0.25),
+    rgba(168,85,247,0.18),
+    rgba(59,130,246,0.00)
+  );
+  filter: blur(10px);
+  opacity: 0.65;
+  animation: spin 1.6s linear infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.98); opacity: 0.35; }
+  50% { transform: scale(1.05); opacity: 0.70; }
+  100% { transform: scale(0.98); opacity: 0.35; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.85);
+}
+.dotOn {
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
+}
+
+.statusText {
+  font-size: 13px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* 预览区域：更像“输入框卡片” */
+.preview {
+  padding: 10px 16px 16px;
+}
+
+.previewLabel {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.previewBox {
+  min-height: 118px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+
+  background:
+    radial-gradient(400px 120px at 20% 0%, rgba(59,130,246,0.08), transparent 60%),
+    #fbfcff;
+
+  color: #0f172a;
+  line-height: 1.7;
+  font-size: 14px;
+  white-space: pre-wrap;
+
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.placeholder { color: rgba(148, 163, 184, 0.95); }
+.interim { color: rgba(100, 116, 139, 0.95); opacity: 0.9; }
+
+/* 操作区 */
+.actions {
+  padding: 14px 16px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255,255,255,0.55);
+}
+
+.spacer { flex: 1; }
+
+/* 主按钮：更像“科技 CTA” */
+.primary {
+  padding: 10px 14px;
+  border: 1px solid rgba(37, 99, 235, 0.85);
+  background: linear-gradient(180deg, #2563eb, #1d4ed8);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+
+  box-shadow:
+    0 14px 28px rgba(37, 99, 235, 0.22),
+    inset 0 1px 0 rgba(255,255,255,0.24);
+
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+  box-shadow:
+    0 18px 34px rgba(37, 99, 235, 0.26),
+    inset 0 1px 0 rgba(255,255,255,0.24);
+}
+
+.primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 次按钮：更轻、更干净 */
+.secondary {
+  padding: 10px 14px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: rgba(255,255,255,0.9);
+  color: #0f172a;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.secondary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.10);
+}
+
+.secondary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}

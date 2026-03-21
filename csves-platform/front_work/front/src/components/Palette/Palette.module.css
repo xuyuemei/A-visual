@@ -1,0 +1,17 @@
+/* .hoverCard {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.hoverCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+} */
+.overlappingHover {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.overlappingHover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  border-radius: 9999px; /* 保证阴影是圆形边 */
+}

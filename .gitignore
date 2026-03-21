@@ -1,0 +1,26 @@
+# 创建 .gitignore 文件
+cat > .gitignore << 'EOF'
+# 排除虚拟环境
+.venv/
+
+# 排除 mark 文件夹下的 Qwen 和 Qwen_model.pt
+mark/Qwen/
+mark/Qwen_model.pt
+
+# 排除压缩包
+C-Voices-A-visual压缩包.zip
+
+# Python相关
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+EOF

@@ -1,0 +1,50 @@
+{
+  "name": "front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "@ant-design/pro-components": "^2.8.7",
+    "@ant-design/x": "^1.1.1",
+    "@fortune-sheet/react": "^1.0.2",
+    "@syncfusion/ej2-react-spreadsheet": "^29.1.37",
+    "@umijs/max": "^4.4.10",
+    "antd": "^5.27.6",
+    "echarts": "^6.0.0",
+    "framer-motion": "^12.23.24",
+    "i18next": "^25.7.4",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^16.5.2",
+    "react-markdown": "^10.1.0",
+    "react-modal-image": "^2.6.0",
+    "react-router-dom": "^7.5.1",
+    "react-spreadsheet": "^0.10.1",
+    "remark-gfm": "^4.0.1",
+    "scheduler": "^0.26.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/echarts": "^5.0.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/react-modal-image": "^2.6.4",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.26.1",
+    "vite": "^6.3.2"
+  }
+}

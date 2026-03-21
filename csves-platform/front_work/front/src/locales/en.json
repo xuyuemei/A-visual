@@ -1,0 +1,244 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "add": "Add",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "clear": "Clear",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "refresh": "Refresh",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "copy": "Copy",
+    "share": "Share",
+    "settings": "Settings",
+    "help": "Help",
+    "about": "About",
+    "modelAnswers": "Model Answers",
+    "valueCompass": "Value Compass",
+    "dimensionTable": "Dimension Score Table",
+    "socialistCoreValues": "Socialist Core Values Compass",
+    "processing": "Processing..."
+  },
+  "modal": {
+    "selectModel": "Select Model",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "navigation": {
+    "home": "Home",
+    "textScoring": "Text Scoring",
+    "modelEvaluation": "Model Evaluation",
+    "videoEvaluation": "Video Analysis",
+    "history": "History"
+  },
+  "hero": {
+    "title": "C-Voices",
+    "subtitle": "Socialist Core Values Intelligent Evaluation System",
+    "start": "Start Evaluation",
+    "learn": "Learn More"
+  },
+  "home": {
+    "title": "C-Voices: LLM Core Value Evaluation System",
+    "subtitle": "C-Voices: LLM Value Evaluation System",
+    "description1": "C-Voices is a value evaluation and visual analysis platform for large language models, built upon the 12 dimensions of Chinese Socialist Core Values (Prosperity, Democracy, Civility, Harmony, Freedom, Equality, Justice, Rule of Law, Patriotism, Dedication, Integrity, and Friendship) to establish a unified evaluation framework for systematic and quantitative analysis of model value orientations across various scenarios.",
+    "description2": "The platform empowers researchers and developers to comprehensively understand model value expression characteristics at national, social, and individual levels through two evaluation modes: open-ended Q&A and value-based choice questions, enabling risk identification and facilitating model alignment and optimization.",
+    "openQuestionMode": "Open-ended Mode: Randomly selects evaluation questions and performs 12-dimension scoring based on model-generated responses.",
+    "choiceQuestionMode": "Choice-based Mode: Presents A/B options (Support/Oppose) for value dilemmas and calculates model support rates across each dimension.",
+    "conclusion": "Through these two evaluation modes, C-Voices enables you to quickly gain insights into different models' value orientations and potential risks at national, social, and individual levels.",
+    "featureModulesTitle": "Feature Modules",
+    "featureModulesSubtitle": "Choose your desired feature module to begin your intelligent evaluation journey",
+    "textEvaluation": "Text Evaluation",
+    "modelEvaluation": "Model Evaluation",
+    "modelEvaluationDescription": "Unified value dimension evaluation and comparative analysis of different large language models, helping users understand model value characteristics and providing a foundation for model selection, alignment optimization, and safety assessment.",
+    "videoEvaluation": "Video Analysis", 
+    "historyRecords": "History Records",
+    "learnMore": "Learn More"
+  },
+  "videoEvaluation": {
+    "title": "Video Value 12-Dimension Scoring",
+    "subtitle": "Multimodal video analysis combining visual content and audio dialogue for value assessment",
+    "description1": "This feature utilizes multimodal AI technology to conduct in-depth analysis of video content. The system automatically extracts key frames for visual analysis while transcribing audio dialogue, comprehensively evaluating the value orientation of video content.",
+    "description2": "Suitable for value analysis of various video content types including educational videos, promotional materials, news reports, and documentaries, helping content creators and regulatory agencies quickly assess the value orientation of videos."
+  },
+  "textScoring": {
+    "title": "Text Value 12-Dimension Scoring",
+    "subtitle": "Analyze value orientation of any input text and output 12-dimension scoring results",
+    "description1": "This feature performs value analysis on individual text segments, utilizing a unified trained scoring model to quantitatively evaluate text content across 12 dimensions: Prosperity, Democracy, Civility, Harmony, Freedom, Equality, Justice, Rule of Law, Patriotism, Dedication, Integrity, and Friendship.",
+    "description2": "Ideal for rapid value orientation detection and risk analysis of model-generated content, human-written text, or dialogue fragments.",
+    "description3": "Supports pasting model outputs, dialogue content, or any text fragments, automatically generating radar charts and dimension scores."
+  },
+  "modelEvaluation": {
+    "title": "Model Value Evaluation and Comparative Analysis",
+    "subtitle": "Unified value dimension evaluation and comparative analysis of different large language models",
+    "description1": "This page facilitates systematic value evaluation of multiple large language models. The platform generates comparable evaluation results based on unified evaluation question sets and scoring standards, conducting comprehensive 12-dimension analysis of model outputs.",
+    "description2": "Through comparative analysis of performance differences across various value dimensions, users gain insights into model value characteristics, providing a foundation for model selection, alignment optimization, and safety assessment."
+  },
+  "evaluate": {
+    "title": "Model Value Evaluation and Comparative Analysis",
+    "subtitle": "Unified value dimension evaluation and comparative analysis of different large language models",
+    "description1": "This page facilitates systematic value evaluation of multiple large language models. The platform generates comparable evaluation results based on unified evaluation question sets and scoring standards, conducting comprehensive 12-dimension analysis of model outputs.",
+    "description2": "Through comparative analysis of performance differences across various value dimensions, users gain insights into model value characteristics, providing a foundation for model selection, alignment optimization, and safety assessment.",
+    "comparePool": {
+      "title": "Select Comparison Models",
+      "subtitle": "Select up to {{max}} models for comparative evaluation",
+      "noDataHint": "Please select models to evaluate first",
+      "selectModels": "Select Models",
+      "clear": "Clear All",
+      "selected": "Selected",
+      "addModel": "Add Model",
+      "clickToSelect": "Click to Select",
+      "currentSelection": "Currently selected {{current}}/{{max}} models"
+    },
+    "section": {
+      "title": "Model Value Evaluation",
+      "subtitle": "Multi-dimensional analysis of model values based on unified evaluation system",
+      "startEvaluation": "Start Evaluation",
+      "selectModels": "Please select models to evaluate first",
+      "evaluationInProgress": "Evaluation in progress...",
+      "evaluationCompleted": "Evaluation completed",
+      "viewResults": "View Results",
+      "exportResults": "Export Results"
+    },
+    "errors": {
+      "questionReshuffleFailed": "Question reshuffle failed: No valid question returned",
+      "questionReshuffleRetry": "Question reshuffle failed, please try again"
+    },
+    "questions": {
+      "openEnded": "Open-ended Questions",
+      "choice": "Choice Questions",
+      "previous": "Previous",
+      "next": "Next",
+      "submit": "Submit Answer",
+      "skip": "Skip",
+      "progress": "Progress {{current}}/{{total}}",
+      "extracted": "Extracted questions:"
+    },
+    "results": {
+      "title": "Evaluation Results",
+      "radarChart": "Radar Chart Analysis",
+      "dimensionTable": "Dimension Score Table",
+      "comparison": "Model Comparison",
+      "overallScore": "Overall Score",
+      "dimensionScores": "Dimension Scores",
+      "detailedAnalysis": "Detailed Analysis",
+      "exportPDF": "Export PDF",
+      "exportExcel": "Export Excel",
+      "shareResults": "Share Results"
+    },
+    "buttons": {
+      "reshuffle": "Reshuffle this question",
+      "reshuffleAll": "Reshuffle All",
+      "confirmEvaluation": "Confirm Evaluation"
+    },
+    "dimensionTable": "Dimension Score Table"
+  },
+  "history": {
+    "title": "Evaluation History",
+    "subtitle": "View and manage your evaluation history records",
+    "empty": "No evaluation history available",
+    "clearAll": "Clear History",
+    "confirmClear": "Confirm to clear all history records?",
+    "deleteRecord": "Delete Record",
+    "confirmDelete": "Confirm to delete this record?",
+    "viewDetails": "View Details",
+    "exportHistory": "Export History",
+    "filter": {
+      "all": "All",
+      "today": "Today",
+      "week": "This Week",
+      "month": "This Month",
+      "custom": "Custom"
+    },
+    "record": {
+      "id": "Record ID",
+      "time": "Evaluation Time",
+      "models": "Evaluation Models",
+      "type": "Evaluation Type",
+      "questions": "Question Count",
+      "duration": "Duration",
+      "status": "Status",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "failed": "Failed"
+    }
+  },
+  "dimensions": {
+    "prosperity": "Prosperity",
+    "democracy": "Democracy",
+    "civility": "Civility",
+    "harmony": "Harmony",
+    "freedom": "Freedom",
+    "equality": "Equality",
+    "justice": "Justice",
+    "ruleOfLaw": "Rule of Law",
+    "patriotism": "Patriotism",
+    "dedication": "Dedication",
+    "integrity": "Integrity",
+    "friendship": "Friendship"
+  },
+  "models": {
+    "select": "Select Model",
+    "noModels": "No available models",
+    "loading": "Loading models...",
+    "addCustom": "Add Custom Model",
+    "editModel": "Edit Model",
+    "deleteModel": "Delete Model",
+    "modelInfo": "Model Information",
+    "name": "Model Name",
+    "version": "Version",
+    "provider": "Provider",
+    "description": "Description",
+    "apiKey": "API Key",
+    "baseUrl": "Base URL",
+    "maxTokens": "Max Tokens",
+    "temperature": "Temperature",
+    "testConnection": "Test Connection"
+  },
+  "errors": {
+    "networkError": "Network connection failed. Please check your network settings",
+    "apiError": "API request failed. Please try again later",
+    "invalidInput": "Invalid input. Please review and try again",
+    "fileFormatError": "Unsupported file format. Please upload txt, doc, docx, or image files",
+    "fileSizeError": "File size exceeds limit. Please upload files smaller than 10MB",
+    "modelNotFoundError": "Model not found. Please check your model configuration",
+    "permissionDenied": "Access denied. Please verify your API key",
+    "rateLimitExceeded": "Too many requests. Please wait and try again",
+    "serverError": "Server error. Please contact the administrator",
+    "unknownError": "An unexpected error occurred. Please try again"
+  },
+  "success": {
+    "saved": "Saved successfully",
+    "deleted": "Deleted successfully", 
+    "uploaded": "Uploaded successfully",
+    "copied": "Copied to clipboard",
+    "exported": "Exported successfully",
+    "imported": "Imported successfully",
+    "connected": "Connection successful",
+    "evaluationCompleted": "Evaluation completed successfully",
+    "modelsUpdated": "Models updated successfully"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidUrl": "Please enter a valid URL",
+    "minLength": "Minimum {{min}} characters required",
+    "maxLength": "Maximum {{max}} characters allowed",
+    "invalidFormat": "Invalid format",
+    "duplicateEntry": "Duplicate entry already exists"
+  }
+}

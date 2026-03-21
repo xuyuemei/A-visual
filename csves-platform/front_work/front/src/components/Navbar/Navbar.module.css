@@ -1,0 +1,95 @@
+/* Navbar.module.css */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(246, 248, 252, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e6ebf5;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbarContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+/* 左侧区域 */
+.navbarLeft {
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+/* 右侧导航区域 */
+.navbarRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navButton {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.18s ease;
+}
+
+.navButton:hover:not(.active) {
+  background: rgba(29, 78, 216, 0.08);
+  color: #1d4ed8;
+}
+
+.active {
+  background: #ffffff;
+  color: #1d4ed8;
+  border-color: #e6ebf5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .navbarContainer {
+    padding: 10px 16px;
+  }
+
+  .logoText {
+    font-size: 16px;
+  }
+
+  .navbarRight {
+    gap: 6px;
+  }
+
+  .navButton {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbarContainer {
+    padding: 8px 12px;
+  }
+
+  .navButton {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,28 @@
+  /* 内容区 */
+  .content {
+    flex: 1;
+    position: relative;  /* ⭐ 关键 */
+    height: 100%;    
+    overflow: hidden;     /* 如果 Sender 溢出容器，就隐藏 */
+  }
+  .sender {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* padding: 12px 20px; */
+    background-color: rgb(255, 255, 255); 
+    border: 1px solid #8db1ff;
+  }
+  .prompts {
+  
+    width: 100%;
+    /* height: 100%; */
+    padding: 5px 0px ;
+    background-color: #b7282800;
+    border-radius: 10px;
+    overflow-y: auto; 
+    align-items: center;
+    font-weight: 500;
+        /* overflow-x: hidden; */
+  }

@@ -1,0 +1,13 @@
+.chart {
+  width: 100%;
+  height: 500px;
+  margin-top: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  box-sizing: border-box;
+  /* 略微加深边框和阴影，让卡片更有质感，但不要太重 */
+  border: 1px solid #dde3ef;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 20px 20px;
+}
+

@@ -1,0 +1,136 @@
+/* 表格容器 */
+.tableContainer {
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #dde3ef;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 0.3cm;
+}
+
+.tableTitle {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e1e1e;
+  margin-bottom: 20px;
+}
+
+/* 表格包装器 */
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #eef1f6;
+  background: #fff;
+}
+
+/* 分数表格 */
+.scoreTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* 表头样式 */
+.scoreTable th {
+  padding: 16px 12px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #e1e8ff;
+}
+
+/* 原本的 modelHeader 保留（不用也没事） */
+.modelHeader {
+  background: #f4f8ff;
+  color: #333;
+  font-size: 14px;
+  min-width: 100px;
+}
+
+/* 现在我们两列都用 dimensionHeader */
+.dimensionHeader {
+  background: #f8f9fa;
+  color: #333;
+  font-size: 14px;
+  min-width: 120px;
+  border-bottom: 2px solid #e1e5e9;
+}
+
+/* 表格内容 */
+.scoreTable td {
+  padding: 16px 12px;
+  text-align: center;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+/* 这里复用 modelCell 做“维度列”的样式（蓝色粗体） */
+.modelCell {
+  background: #f8faff;
+  font-weight: 600;
+  color: #0052d9;
+  font-size: 13px;
+  border-right: 1px solid #eef1f6;
+}
+
+.scoreCell {
+  font-weight: 600;
+  font-size: 15px;
+  color: #000;
+}
+
+/* 分数颜色分级（你当前都黑色，先保留结构） */
+.highScore { color: #000; }
+.mediumScore { color: #000; }
+.lowScore { color: #000; }
+
+.tableFooter {
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid #eef1f6;
+}
+
+.tableFooter p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.tableFooter strong {
+  color: #0052d9;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .tableContainer {
+    padding: 16px;
+  }
+
+  .scoreTable th,
+  .scoreTable td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .dimensionHeader {
+    min-width: 100px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tableContainer {
+    padding: 12px;
+  }
+
+  .scoreTable th,
+  .scoreTable td {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  .dimensionHeader {
+    min-width: 90px;
+    font-size: 11px;
+  }
+}

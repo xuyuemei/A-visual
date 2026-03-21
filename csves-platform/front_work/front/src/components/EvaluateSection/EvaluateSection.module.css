@@ -1,0 +1,717 @@
+/* 页面整体容器 */
+.container {
+  padding: 16px 24px 32px;
+  background: #f9faff;
+  min-height: auto;
+  height: auto;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* 模块标题 */
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin-bottom: 28px;
+  text-align: left;
+  border-left: 5px solid #0052d9;
+  padding-left: 12px;
+}
+
+/* 头部区域 */
+.header {
+  margin-bottom: 20px;
+}
+
+/* 模型信息区域 */
+.modelInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: #f0f7ff;
+  border-radius: 8px;
+  border-left: 4px solid #0052d9;
+}
+
+/* 强化模型信息文字对比度，避免被外部样式覆盖为浅色 */
+.modelInfo span {
+  color: #1f2937 !important;
+}
+
+.modelBadge {
+  font-size: 16px;
+  color: #333;
+}
+
+.modelBadge strong {
+  color: #0052d9;
+}
+
+/* 卡片容器 */
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* 带箭头的卡片布局 */
+.cardWithArrows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1100px; /* 放宽整体区域，接近容器宽度的约 4/5 */
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 箭头样式 - 无背景，灰色 */
+.arrow {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #666; /* 灰色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 10px;
+}
+
+/* 放大左右切换的尖括号图标 */
+.arrow svg {
+  width: 48px;
+  height: 72px; /* 垂直更长，整体更显眼 */
+}
+
+.arrow:hover {
+  color: #0052d9; /* 悬停时变为蓝色 */
+}
+
+.arrowLeft {
+  order: 1;
+}
+
+.card {
+  order: 2;
+  flex: 1;
+  max-width: 1040px; /* 再加宽卡片，使确认区域和问答卡片更接近全宽 */
+}
+
+.arrowRight {
+  order: 3;
+}
+
+/* 单个问题-回答卡片 - 分离式布局（基础样式：自适应高度） */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease;
+  border: 1px solid #eef1f6;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* 为计数器提供定位上下文 */
+  overflow: hidden;
+}
+
+/* 仅用于主问答视图的高卡片，抽取问题/日志仍用基础 .card */
+.cardFull {
+  min-height: 850px; /* 主问答卡片高度保持你期望的长度 */
+}
+
+/* 问题区域 - 固定在上方 */
+.questionSection {
+  background: #f4f8ff; /* 纯色浅蓝背景，与模型池风格保持一致 */
+  border-bottom: 1px solid #eef1f6;
+  padding: 20px 24px;
+  flex-shrink: 0; /* 防止被压缩 */
+}
+
+.questionHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.questionNumber {
+  background: #0052d9;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.questionText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e1e1e;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+/* 回答区域 - 可单独滚动 */
+.answerSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 0; /* 🔹 移除底部padding，因为分析组件现在在外部 */
+}
+
+.answerHeader {
+  padding: 16px 24px 12px;
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+/* 回答内容 + 分析组件 等宽横向布局 */
+.answerRow {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  padding: 0 24px 16px;
+  box-sizing: border-box;
+}
+
+.answerColumn {
+  flex: 3; /* 左侧回答区域明显更宽 */
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* 防止内容撑破 */
+}
+
+.analysisColumn {
+  flex: 1; /* 右侧深度分析保持较窄 */
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* 让回答内容在自己的列里滚动 */
+.answerColumn .answerContent {
+  flex: 1;
+  padding: 0; /* 取消多余内边距，由 answerRow 控制整体间距 */
+}
+
+.answerLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0052d9;
+}
+
+/* 通用内容区域：用于抽取问题卡片、日志等，自适应高度 */
+.answerContent {
+  flex: 1;
+  padding: 0 24px 20px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  white-space: normal; /* 使用默认换行规则，避免 Markdown 文本的换行被放大为空行 */
+  margin-bottom: 0; /* 🔹 移除底部margin */
+}
+
+/* 主回答区域专用：固定显示高度约 8cm，文本超出时在内部滚动查看 */
+.answerContentMain {
+  flex: none;
+  height: 520px; /* 增加到 520px，提供更多显示空间 */
+  padding: 0 24px 20px;
+  overflow-y: auto;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  white-space: normal;
+  margin-bottom: 0;
+}
+
+/* 回答正文：首段稍微下移，所有段落首行缩进两个字符，但数字标题段落不缩进 */
+.answerContentMain p:first-of-type {
+  margin-top: 0.2cm;
+}
+
+.answerContentMain p {
+  text-indent: 2em;
+}
+
+/* 数字小标题特殊样式：让 一、二、三、四、等标题更突出，但只加粗不改变大小 */
+.answerContentMain p > strong:first-child {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* 数字标题段落：取消缩进并增加间距，但保持正常字体大小 */
+.answerContentMain p:has(> strong:first-child) {
+  font-weight: 400;
+  margin: 16px 0 10px !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
+  font-size: 14px;
+}
+
+/* 列表项文本也保持与段落一致的首行缩进效果 */
+.answerContentMain li {
+  text-indent: 2em;
+}
+
+/* 🔹 Markdown 排版优化：控制段落/标题/列表间距与层级感 */
+.answerContent p {
+  margin: 0 0 6px; /* 进一步压缩上下空白，仅保留很小间距 */
+}
+
+/* 首段文字稍微下移一点，避免紧贴顶部 */
+.answerContent p:first-of-type {
+  margin-top: 6px; /* 约 0.2cm 视觉高度 */
+}
+
+/* 数字小标题特殊样式：让 一、二、三、四、等标题更突出，但只加粗不改变大小 */
+.answerContent p > strong:first-child {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* 数字标题段落：取消缩进并增加间距，但保持正常字体大小 */
+.answerContent p:has(> strong:first-child) {
+  font-weight: 400;
+  margin: 16px 0 10px !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
+  font-size: 14px;
+}
+
+.answerContent h1,
+.answerContent h2,
+.answerContent h3 {
+  margin: 12px 0 6px;
+  font-weight: 700;
+  color: #222;
+}
+
+.answerContent h1 {
+  font-size: 20px;
+}
+
+.answerContent h2 {
+  font-size: 18px;
+}
+
+.answerContent h3 {
+  font-size: 16px;
+}
+
+.answerContent strong {
+  font-weight: 600;
+}
+
+.answerContent ul,
+.answerContent ol {
+  margin: 2px 0 2px 20px; /* 列表上下几乎不留空白，仅稍作缩进 */
+  padding-left: 18px;
+}
+
+.answerContent li {
+  margin: 0; /* 去掉 li 之间的额外空白，让列表更加紧凑 */
+}
+
+/* 🔹 新增：分析组件区域 */
+.analysisSection {
+  border-top: 1px solid #f0f0f0;
+  background: #ffffff; /* 与上方回答区域保持同样的白色背景 */
+  padding: 16px 24px;
+  margin: 0;
+  overflow: visible; /* 让内部分析内容自然撑开高度，随整张卡片和页面一起滚动 */
+}
+
+/* 折叠状态下的分析区域：仅包住按钮，不占用过多高度 */
+.analysisSectionCollapsed {
+  border-top: 1px solid #f0f0f0;
+  background: #ffffff; /* 折叠时同样保持白色背景，避免色块断层 */
+  padding: 8px 24px;
+  margin: 0;
+}
+
+/* 五条细线计数器 - 调整位置 */
+.lineCounter {
+  display: flex;
+  gap: 4px; /* 紧凑间距 */
+  justify-content: center;
+  padding: 10px 0 4px; /* 与内容之间增加间距 */
+  background: transparent;
+  position: static; /* 不再绝对定位，避免与文字重叠 */
+  margin-top: 8px;  /* 和上方结构隔开 */
+}
+
+.line {
+  width: 20px;  /* 保持宽度，可以根据需要调整为更细，如 16px */
+  height: 1px;  /* 已经很细，如果想更细，可以试 0.5px，但浏览器可能渲染为1px */
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+  
+  /* 新增：重置按钮默认样式，确保不是方框 */
+  appearance: none;  /* 移除浏览器默认按钮外观 */
+  -webkit-appearance: none;  /* Safari/Chrome 支持 */
+  -moz-appearance: none;     /* Firefox 支持 */
+  padding: 0;                /* 移除内边距 */
+  margin: 0;                 /* 移除外边距 */
+  outline: none;             /* 移除焦点边框 */
+  min-width: auto;           /* 覆盖最小宽度 */
+  min-height: auto;          /* 覆盖最小高度 */
+  box-sizing: border-box;    /* 确保尺寸计算正确 */
+}
+
+.activeLine {
+  background: #000000;
+  height: 2px;  /* 活跃状态稍粗一点 */
+  opacity: 1;
+  /* 新增：继承重置样式 */
+  padding: 0;
+  margin: 0;
+}
+
+.disabledLine {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: not-allowed;
+  opacity: 0.3;
+  /* 新增：继承重置样式 */
+  padding: 0;
+  margin: 0;
+}
+
+.line:hover:not(.disabledLine) {
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0.8;
+}
+
+.activeLine:hover:not(.disabledLine) {
+  background: #000000;
+  opacity: 1;
+}
+
+/* 自定义回答区域滚动条 */
+.answerContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.answerContent::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.answerContent::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.answerContent::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 评估模型信息（雷达图下方） */
+.modelNameFooter {
+  text-align: center;
+  margin-top: 16px;
+  padding: 12px;
+  background: #f8faff;
+  border: 1px solid #eef1f6;
+  border-radius: 10px;
+}
+
+.modelNameFooter p {
+  margin: 0 0 6px 0;
+  color: #1f2937 !important; /* 强化对比度 */
+}
+
+.modelTechInfo {
+  font-size: 14px;
+  color: #374151 !important; /* 深一些的次要信息颜色并覆盖外部样式 */
+}
+
+/* 可视化区域 */
+.visualizationSection {
+  margin-top: 40px;
+  /* 顶部保持 20px，左右和底部各增加约 0.5cm 的留白 */
+  padding: 20px 40px 40px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  /* 让可视化区域整体比容器窄约 3.6cm，并保持居中 */
+  max-width: calc(100% - 3.6cm);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 维度表格视图下，稍微再多留一点空间（约 5cm 的底部差） */
+.tableVisualization {
+  margin-bottom: 5cm;
+}
+
+/* 视图切换菜单 */
+.viewToggle {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 0 auto 24px auto; /* 再加大与下方内容的距离，避免视觉重叠 */
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border-bottom: 2px solid #1f6bd8; /* 参考图的蓝色基线 */
+}
+
+.toggleButton {
+  padding: 12px 22px; /* 更宽更高 */
+  border: 1px solid #d6dae5; /* 淡灰边框 */
+  background: #ffffff; /* 非激活白底 */
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #667085; /* 灰色文字 */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.activeToggle {
+  position: relative;
+  background: #1f6bd8; /* 中等蓝 */
+  color: #ffffff;
+  border-color: #1f6bd8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* 不再覆盖底部蓝色基线，保证整条蓝线贯穿不断 */
+.activeToggle::after { content: none; }
+
+.toggleButton:hover:not(.activeToggle) {
+  color: #1f6bd8;
+  background: #f6f8ff;
+  border-color: #c5d4ff;
+}
+
+/* 模型切换 Tab - 胶囊滑块样式 */
+.logToggleGroup {
+  display: inline-flex;
+  padding: 2px;
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+
+.logToggle {
+  border: none;
+  background: #ffffff;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logToggleActive {
+  background: #0044ba;
+  color: #ffffff;
+  box-shadow: 0 0 0 1px #0044ba;
+}
+
+/* 评估日志条目样式 */
+.logItem {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 让日志里的第一个小卡片离顶部有一点空隙 */
+.logItem:first-child {
+  margin-top: 0.3cm;
+}
+
+.logItem:hover {
+  background: #f3f4f6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.logItemHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logItemArrow {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.logItemSummary {
+  font-size: 13px;
+  color: #111827;
+}
+
+.logItemDetail {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* 加载状态文字 */
+.loading {
+  color: #888;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 60px;
+  font-style: italic;
+}
+
+/* 无数据提示 */
+.empty {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+  margin-top: 60px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 错误提示 */
+.error {
+  text-align: center;
+  color: #ff4d4f;
+  font-size: 16px;
+  margin-top: 60px;
+  background: #fff2f0;
+  border-radius: 10px;
+  padding: 20px 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ffccc7;
+}
+
+/* 响应式布局优化 */
+@media (max-width: 900px) {
+  .container {
+    padding: 30px 20px;
+  }
+  
+  .title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .cardWithArrows {
+    gap: 15px;
+    max-width: 100%;
+  }
+  
+  .card {
+    height: 780px; /* 🔹 中等屏高度同步提高一点 */
+    max-width: 100%;
+  }
+  
+  .questionSection {
+    padding: 16px 20px;
+  }
+  
+  .questionText {
+    font-size: 15px;
+  }
+  
+  .answerHeader {
+    padding: 14px 20px 10px;
+  }
+  
+  .answerContent {
+    padding: 0 20px 16px;
+    font-size: 13px;
+  }
+  
+  .lineCounter {
+    padding: 10px 0;
+  }
+  
+  .line {
+    width: 16px;
+  }
+  
+  .viewToggle {
+    width: 100%;
+  }
+  
+  .toggleButton {
+    flex: 1;
+    text-align: center;
+  }
+  
+  /* 🔹 移动端分析组件区域 */
+  .analysisSection {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 16px;
+  }
+  
+  .cardWithArrows {
+    gap: 10px;
+  }
+  
+  .card {
+    height: 700px; /* 🔹 小屏也相应再拉高一截 */
+  }
+  
+  .questionSection {
+    padding: 14px 16px;
+  }
+  
+  .questionHeader {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .questionNumber {
+    align-self: flex-start;
+  }
+  
+  .answerHeader {
+    padding: 12px 16px 8px;
+  }
+  
+  .answerContent {
+    padding: 0 16px 14px;
+  }
+  
+  .lineCounter {
+    gap: 4px;
+    padding: 8px 0;
+  }
+  
+  .line {
+    width: 12px;
+  }
+  
+  /* 🔹 移动端分析组件区域 */
+  .analysisSection {
+    padding: 10px 12px;
+  }
+}

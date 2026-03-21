@@ -1,0 +1,17 @@
+✅ 数据库连接成功：mysql+pymysql://root:123456@localhost:3306/bs_db?charset=utf8mb4
+✅ 文本评分蓝图注册完成：/api/score_text
+✅ 图片分析蓝图注册完成：/api/analyze_image
+✅ 视频分析蓝图注册完成：/api/analyze_video
+✅ 分析蓝图注册完成
+✅ 所有蓝图注册完成：upload, dataprocess, chart, template, extract, evaluate, image_analysis, video_analysis, analysis
+✅ 所有蓝图注册完成：upload, dataprocess, chart, template, extract, evaluate, image_analysis, analysis
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.12.65.218:8000
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 137-047-199

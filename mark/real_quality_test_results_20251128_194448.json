@@ -1,0 +1,22 @@
+{
+  "test_info": {
+    "timestamp": "2025-11-28T19:44:43.993011",
+    "num_questions": 2,
+    "models": [
+      "gpt-3.5-turbo"
+    ],
+    "original_count": 90,
+    "new_count": 400
+  },
+  "original_results": {
+    "gpt-3.5-turbo": {
+      "error": "评估服务调用失败"
+    }
+  },
+  "new_results": {
+    "gpt-3.5-turbo": {
+      "error": "评估服务调用失败"
+    }
+  },
+  "comparison": {}
+}

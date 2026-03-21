@@ -1,0 +1,433 @@
+/* HistorySection.module.css - 最终修正版 (适配细线计数器) */
+
+/* ================== 基础容器 ================== */
+.container {
+  padding: 20px;
+  background: #F7F8FC;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 0;
+}
+
+/* ================== 按钮样式 ================== */
+/* 适配主题色 #1D4ED8 */
+.clearButton {
+  padding: 8px 16px;
+  background: #1D4ED8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.clearButton:hover:not(:disabled) {
+  background: #1E40AF;
+}
+
+.clearButton:disabled {
+  background: #d9d9d9;
+  cursor: not-allowed;
+}
+
+/* ================== 列表与卡片概览 ================== */
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.historyCard {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #eef1f6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #fcfdfe;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.recordInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 模型标签列表 (用于卡片头部概览) */
+.modelTagList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.modelTag {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1D4ED8;
+  background: #EFF6FF;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+}
+
+.toggleButton, .deleteButton {
+  padding: 6px 12px;
+  border: 1px solid #d9d9d9;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.toggleButton:hover {
+  border-color: #1D4ED8;
+  color: #1D4ED8;
+}
+
+.deleteButton:hover {
+  border-color: #ff4d4f;
+  color: #ff4d4f;
+}
+
+.cardContent {
+  padding: 20px;
+  background: #fff;
+}
+
+/* ================== 视图切换 Tab ================== */
+.viewToggle {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 0 auto 24px auto;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border-bottom: 2px solid #D1D5DB;
+  max-width: 100%;
+}
+
+.viewToggleButton {
+  padding: 10px 20px;
+  border: 1px solid #D1D5DB;
+  background: #ffffff;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4B5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.activeToggle {
+  position: relative;
+  background: #1D4ED8;
+  color: #ffffff;
+  border-color: #1D4ED8;
+  font-weight: 600;
+  transform: translateY(1px);
+  border-bottom: 1px solid #1D4ED8;
+}
+
+/* ================== 可视化区域 (雷达/表格) ================== */
+.visualization {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+/* ================== 问答翻页卡片样式 ================== */
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cardWithArrows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 箭头 */
+.arrow {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #4B5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 10px;
+  opacity: 0.8;
+}
+
+.arrow svg {
+  width: 48px;
+  height: 72px;
+}
+
+.arrow:hover {
+  color: #1D4ED8;
+  opacity: 1;
+}
+
+/* 问答主卡片 */
+.qaCard {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative; /* 为 lineCounter 定位提供上下文 */
+}
+
+/* 问题区域 */
+.questionSection {
+  background: #F8FAFF;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 20px 24px;
+  flex-shrink: 0;
+}
+
+.questionHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.questionNumber {
+  background: #1D4ED8; /* 适配主题色 */
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.questionText {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F2937;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+/* 回答区域 (包含模型切换器) */
+.answerSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: white;
+  overflow: hidden; /* 确保子元素滚动在其内部 */
+}
+
+/* 模型切换 Tabs (胶囊样式) */
+.answerHeader {
+  padding: 16px 24px 12px; 
+  background: white; 
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+.logToggleGroup {
+  display: inline-flex; 
+  padding: 4px; 
+  background: #E5E7EB; 
+  border-radius: 999px;
+}
+.logToggle {
+  border: none; 
+  background: transparent; 
+  padding: 6px 16px; 
+  border-radius: 999px;
+  font-size: 13px; 
+  color: #4B5563; 
+  cursor: pointer; 
+  transition: all 0.2s; 
+  font-weight: 500;
+}
+.logToggleActive {
+  background: #1D4ED8; 
+  color: #ffffff; 
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ 回答内容区域 - 固定高度 + 滚动 */
+.answerContentMain {
+  height: 380px; /* 固定高度 */
+  padding: 24px;
+  overflow-y: auto; /* 强制垂直滚动 */
+  
+  font-size: 14px;
+  color: #4B5563;
+  line-height: 1.7;
+  white-space: pre-wrap; /* 适配 Markdown 和原始文本换行 */
+  flex-shrink: 1;
+}
+
+/* Markdown 样式适配 */
+.answerContentMain p {
+  margin-bottom: 1em;
+  text-indent: 2em; /* 首行缩进 */
+}
+.answerContentMain h1, .answerContentMain h2, .answerContentMain h3 {
+  color: #1F2937;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+
+/* 滚动条 */
+.answerContentMain::-webkit-scrollbar {
+  width: 6px;
+}
+.answerContentMain::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.answerContentMain::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+/* ================== 细线计数器 (适配用户提供的样式) ================== */
+.lineCounter {
+  display: flex;
+  gap: 4px; /* 缩小间隙 */
+  justify-content: center;
+  padding: 8px 0; /* 缩小padding */
+  background: transparent;
+  
+  /* 定位在卡片底部 */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  
+  /* 增加一个分割线，防止与回答内容区重叠视觉效果差 */
+  border-top: 1px solid #f0f0f0; 
+}
+
+.line {
+  width: 20px;
+  height: 1px; /* 极细线 */
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 0; /* 直角细线 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+  
+  /* 重置按钮默认样式 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  min-width: auto;
+  min-height: auto;
+  box-sizing: border-box;
+}
+
+.activeLine {
+  background: #000000;
+  height: 2px; /* 活跃状态稍粗一点 */
+  opacity: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.disabledLine {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: not-allowed;
+  opacity: 0.3;
+  padding: 0;
+  margin: 0;
+}
+
+.line:hover:not(.disabledLine) {
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0.8;
+}
+
+.activeLine:hover:not(.disabledLine) {
+  background: #000000;
+  opacity: 1;
+}
+/* ================== 细线计数器结束 ================== */
+
+.emptyState {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
+  .cardWithArrows {
+    gap: 15px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardWithArrows {
+    gap: 8px;
+  }
+  .arrow svg {
+    width: 32px;
+    height: 48px;
+  }
+  .answerContentMain {
+    height: 300px; 
+    padding: 16px;
+  }
+}

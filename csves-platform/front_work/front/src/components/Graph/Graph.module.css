@@ -1,0 +1,23 @@
+.chartContainer {
+  text-align: center;
+}
+
+.chartDesc {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.chartImage {
+  max-width: 700px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+.chartPlaceholder {
+  color: #999;
+  padding: 60px 0;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+}

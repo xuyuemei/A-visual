@@ -1,0 +1,195 @@
+/* UploadComponent.css */
+.container {
+  
+    padding: 1px 24px;
+    font-family: Arial, sans-serif;
+    color: #555;
+    border: 2px solid #8db1ff;
+    border-radius: 20px;
+    background-color: #ffffff;
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+    background: linear-gradient(to bottom, #e6eefe4d 10%, #fff 80%);
+    
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8db1ff60;
+    cursor: pointer;
+    font-weight: bold;
+    color: #5389fd;
+    box-shadow: #ddd 4px 2px 9px;
+    transition: all 0.2s ease;
+  }
+
+  .button:hover {
+    padding: 10px 20px;
+    box-shadow: #ddd 4px 2px 9px;
+
+    background-color: #8db1ff;
+    color: white;
+  }
+
+  .active
+  {
+    padding: 10px 20px;
+    box-shadow: #ddd 4px 2px 9px;
+    background-color: #8db1ff;
+    color: white;
+  }
+
+  .buttonGroup {
+    display: flex;
+    margin-left: auto; /* 把它推到最右 */
+    justify-content: flex-end; /* 整组按钮靠右 */
+    align-items: flex-end; /* 保持底部对齐 */
+    gap: 8px; /* 按钮之间留8px的小间距（想更小可以改成4px） */
+    margin-bottom: 10px;      /* 下方留出12px的空间 */
+    
+  }
+  
+  .confirm, .example {
+    height: 34px; /* 稍微高一点，看着更舒适 */
+    padding: 8px 16px;
+    border: 2px solid #8db1ff;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #4a74db;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    margin-right: 12px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); /* 加立体小阴影 */
+    transition: all 0.3s ease; /* 加平滑过渡 */
+    cursor: pointer;
+  }
+    
+  .section {
+    background: linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%);
+    border: 2px dashed #8db1ff;
+    height: 150px;
+    /* width:80%; */
+    padding: 18px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dragging {
+    border: 2px dashed #b9daf6;
+    background-color: #f0f8ff;
+  }
+    .icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .text {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .browse-text {
+    color: #8db1ff;
+    text-decoration: underline;
+    font-weight: normal;
+  }
+
+  
+  .input {
+    width: 100%;
+    height: 100%;
+    /* padding: FF; */
+    outline: none; /* 去掉默认的聚焦样式 */
+
+    font-size: 16px;
+    /* border: 1px solid #cccccc; */
+    border-radius: 8px;
+    background-color: #f7258400;
+    resize: none; /* 禁用文本框的缩放 */
+
+  }
+
+  .inputbutton {
+    position: absolute; /* 绝对定位 */
+    bottom: 10px; /* 距离底部10px */
+    right: 10px; /* 距离右边10px */
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* 鼠标悬停时按钮效果 */
+  .inputbutton:hover {
+    background-color: #357ab7;
+  }
+  
+  .exampleButton {
+    margin-left: auto;
+    align-self: flex-end;
+  }
+  
+  .dropdownContent {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    max-width: 400px; /* 可选：最大宽度防止太宽 */
+  }
+  
+  .dropdownHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .copyButton {
+    padding: 0;
+    font-size: 14px;
+    height: auto;
+    line-height: 1;
+  }
+  
+  .dropdownBody {
+    font-size: 14px;
+    color: #555;
+    white-space: pre-wrap; /* 保持换行 */
+  }
+
+  .previewImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  

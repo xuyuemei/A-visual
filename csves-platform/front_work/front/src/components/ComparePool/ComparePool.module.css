@@ -1,0 +1,337 @@
+/* ComparePool.module.css */
+
+.poolWrapper {
+  margin-top: 14px;
+  padding: 16px 16px 14px;
+
+  position: relative; /* ✅ 关键：让 ::before 的光晕定位正确 */
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 16px;
+  border: 1px solid rgba(230, 235, 245, 0.95);
+
+  box-shadow:
+    0 1px 1px rgba(15, 23, 42, 0.03),
+    0 12px 30px rgba(15, 23, 42, 0.06);
+
+  overflow: hidden;
+}
+
+/* subtle top glow + very light texture */
+.poolWrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.85;
+  background:
+    radial-gradient(900px 240px at 12% 0%, rgba(29, 78, 216, 0.12), transparent 55%),
+    radial-gradient(520px 220px at 90% 30%, rgba(59, 130, 246, 0.10), transparent 60%);
+}
+
+/* =============== Header =============== */
+.poolHeader {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 8px 6px 12px;
+  border-bottom: 1px solid rgba(230, 235, 245, 0.9);
+}
+
+.poolTitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.poolTitle {
+  font-size: 15px;
+  font-weight: 850;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+}
+
+.poolSubtitle {
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+.poolActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* lightweight pill buttons */
+.ghostBtn {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: rgba(255, 255, 255, 0.9);
+
+  font-size: 13px;
+  font-weight: 650;
+  color: #334155;
+
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ghostBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(0, 82, 217, 0.28);
+  box-shadow:
+    0 10px 18px rgba(15, 23, 42, 0.06),
+    0 0 0 3px rgba(0, 82, 217, 0.06);
+}
+
+.ghostBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =============== Selected Tags =============== */
+.selectedBar {
+  position: relative;
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+
+  color: #0f172a;
+  background: rgba(29, 78, 216, 0.08);
+  border: 1px solid rgba(29, 78, 216, 0.14);
+}
+
+.tagDot {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
+/* =============== Grid =============== */
+.grid {
+  position: relative;
+  margin-top: 12px;
+
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* =============== Box Card =============== */
+.box {
+  border-radius: 14px !important;
+  height: 112px;
+  overflow: hidden;
+  cursor: pointer;
+
+  /* ✅ 卡片质感（恢复“渲染”） */
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 255, 0.90)) !important;
+
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease, filter 0.14s ease;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.05),
+    0 10px 22px rgba(15, 23, 42, 0.06);
+  position: relative;
+}
+
+/* ✅ 内侧高光（让卡片更“立体”） */
+.box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(500px 120px at 30% 0%, rgba(29, 78, 216, 0.08), transparent 60%);
+  opacity: 0.9;
+}
+
+.box:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 82, 217, 0.26) !important;
+  box-shadow:
+    0 18px 34px rgba(15, 23, 42, 0.10),
+    0 0 0 4px rgba(0, 82, 217, 0.06);
+  filter: saturate(1.03);
+}
+
+/* empty */
+.boxEmpty {
+  border-style: dashed !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.70), rgba(248,250,255,0.55)) !important;
+}
+
+/* filled: 顶部高光条（很轻） */
+.boxFilled::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(29,78,216,0.9), rgba(90,163,255,0.65));
+  opacity: 0.50;
+  pointer-events: none;
+}
+
+/* =============== Empty Content =============== */
+.addBox {
+  height: 100%;
+  padding: 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  text-align: left;
+  position: relative;
+  z-index: 1; /* ✅ 压过 box::after */
+}
+
+.addIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(29, 78, 216, 0.10);
+  border: 1px solid rgba(29, 78, 216, 0.16);
+  color: #1d4ed8;
+
+  box-shadow: 0 10px 18px rgba(29, 78, 216, 0.12);
+}
+
+.addText {
+  font-size: 13px;
+  font-weight: 850;
+  color: #0f172a;
+}
+
+.addHint {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* =============== Filled Content =============== */
+.modelCard {
+  height: 100%;
+  padding: 12px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1; /* ✅ 压过 box::after */
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.modelText {
+  min-width: 0;
+}
+
+.modelName {
+  font-weight: 900;
+  font-size: 13px;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modelMeta {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 750;
+  color: #0f172a;
+
+  background: rgba(22, 163, 74, 0.10);
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+/* antd close button */
+.closeBtn {
+  color: #94a3b8 !important;
+  transition: color 0.12s ease, background 0.12s ease;
+  border-radius: 10px;
+}
+.closeBtn:hover {
+  color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.10);
+}
+
+/* =============== Tip Row =============== */
+.tipRow {
+  position: relative;
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tipText {
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+/* =============== Responsive =============== */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .poolHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .poolActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
