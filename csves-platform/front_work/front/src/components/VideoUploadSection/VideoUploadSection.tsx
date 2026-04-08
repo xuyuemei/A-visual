@@ -129,10 +129,10 @@ const VideoUploadSection: React.FC = () => {
           videoInfo: response.data.video_info,
           transcript: response.data.transcript,
           processingSummary: response.data.processing_summary,
-          scoresByModel: response.data.fusion_result.scores ? { '视频分析': response.data.fusion_result.scores } : undefined,
+          scoresByModel: response.data.fusion_result.scores ? { '视频评测': response.data.fusion_result.scores } : undefined,
         });
         
-        console.log("💾 视频分析结果已保存到历史记录");
+        console.log("💾 视频评测结果已保存到历史记录");
       } else {
         setError(response.data.error || '分析失败');
       }
@@ -323,13 +323,13 @@ const VideoUploadSection: React.FC = () => {
               <div className={styles.chartSection}>
                 <h4 className={styles.sectionTitle}>价值观雷达图</h4>
                 <div className={styles.chartContainer}>
-                  <RadarChart scoresByModel={{ '视频分析': analysisResult.fusion_result.scores }} />
+                  <RadarChart scoresByModel={{ '视频评测': analysisResult.fusion_result.scores }} />
                 </div>
               </div>
               
               <div className={styles.tableSection}>
                 <div className={styles.tableContainer}>
-                  <DimensionTable scoresByModel={{ '视频分析': analysisResult.fusion_result.scores }} />
+                  <DimensionTable scoresByModel={{ '视频评测': analysisResult.fusion_result.scores }} />
                 </div>
               </div>
             </>

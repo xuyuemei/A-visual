@@ -30,12 +30,12 @@ const History: React.FC = () => {
     sortOrder: 'desc',
   };
 
-  const [searchParams, setSearchParams] = useState<API.ChartQueryRequest>({ ...initSearchParams });
-  const [chartList, setChartList] = useState<API.Chart[]>();
+  const [searchParams, setSearchParams] = useState<any>({ ...initSearchParams });
+  const [chartList, setChartList] = useState<any[]>();
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [chartId, setChartId] = useState<number>(0);
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<any>(undefined);
 
   /**
    * 加载数据

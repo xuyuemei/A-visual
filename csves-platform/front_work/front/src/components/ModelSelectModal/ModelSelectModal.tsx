@@ -5,8 +5,8 @@ import styles from "./ModelSelectModal.module.css";
 
 export interface ModelOption {
   name: string;        // 后端使用的模型键（必须与 llm_api.py 一致）
-  displayName: string; // 前端展示用名称，例如 GPT4o-Instruct、Qwen2.5-7B-Instruct
-  source: string;      // 展示来源小字，例如 OpenAI / deepseek / Alibaba Qwen Team
+  displayName: string; // 前端展示用名称
+  source: string;      // 展示来源小字
 }
 
 interface ModalProps {
@@ -17,34 +17,75 @@ interface ModalProps {
   initialSelected?: ModelOption[];
 }
 
-const ModelSelectModal: React.FC<ModalProps> = ({ open, onClose, onSubmit, max, initialSelected }) => {
+const ModelSelectModal: React.FC<ModalProps> = ({
+  open,
+  onClose,
+  onSubmit,
+  max,
+  initialSelected,
+}) => {
   const { t } = useTranslation();
-  // ✅ 模型列表（name 与后端键匹配，displayName/ source 仅用于展示）
+
+  // 必须与后端 API_MODELS 的 key 保持一致
   const [models] = useState<ModelOption[]>([
     {
-      name: "DeepSeek",
+      name: "DeepSeek-Chat",
+      displayName: "DeepSeek-Chat",
+      source: "DeepSeek",
+    },
+    {
+      name: "DeepSeek-R1",
       displayName: "DeepSeek-R1",
-      source: "deepseek",
+      source: "DeepSeek",
     },
     {
       name: "GPT-4o",
-      displayName: "GPT4o-Instruct",
+      displayName: "GPT-4o",
       source: "OpenAI",
     },
-    // 千问系列（与后端 API_MODELS 对应）
+    {
+      name: "gpt-4.1-mini",
+      displayName: "GPT-4.1 Mini",
+      source: "OpenAI",
+    },
+    {
+      name: "gemini-2.5-flash",
+      displayName: "Gemini 2.5 Flash",
+      source: "Google",
+    },
+    {
+      name: "grok-3-mini",
+      displayName: "Grok 3 Mini",
+      source: "xAI",
+    },
+    {
+      name: "llama-3.1-8b-instruct",
+      displayName: "Llama 3.1 8B Instruct",
+      source: "Meta",
+    },
+    {
+      name: "doubao-seed-2-0-mini-260215",
+      displayName: "Doubao Seed 2.0 Mini",
+      source: "ByteDance",
+    },
+    {
+      name: "glm-4.5-air",
+      displayName: "GLM-4.5-Air",
+      source: "Zhipu AI",
+    },
     {
       name: "Qwen 2.5 7B",
-      displayName: "Qwen2.5-7B-Instruct",
+      displayName: "Qwen 2.5 7B Instruct",
       source: "Alibaba Qwen Team",
     },
     {
       name: "Qwen 2.5 32B",
-      displayName: "Qwen2.5-32B-Instruct",
+      displayName: "Qwen 2.5 32B Instruct",
       source: "Alibaba Qwen Team",
     },
     {
       name: "Qwen 2.5 72B",
-      displayName: "Qwen2.5-72B-Instruct",
+      displayName: "Qwen 2.5 72B Instruct",
       source: "Alibaba Qwen Team",
     },
   ]);
@@ -84,7 +125,7 @@ const ModelSelectModal: React.FC<ModalProps> = ({ open, onClose, onSubmit, max, 
   return (
     <Modal
       open={open}
-      title={t('modal.selectModel')}
+      title={t("modal.selectModel")}
       onCancel={onClose}
       footer={null}
       centered
@@ -98,11 +139,11 @@ const ModelSelectModal: React.FC<ModalProps> = ({ open, onClose, onSubmit, max, 
         <p className={styles.empty}>暂无模型，请稍后再试。</p>
       ) : (
         <div className={styles.modelList}>
-          {models.map((model) => (
-            (() => {
-              const checked = selected.some((m) => m.name === model.name);
-              const disabled = !checked && selected.length >= max;
-              return (
+          {models.map((model) => {
+            const checked = selected.some((m) => m.name === model.name);
+            const disabled = !checked && selected.length >= max;
+
+            return (
               <Checkbox
                 key={model.name}
                 checked={checked}
@@ -111,22 +152,23 @@ const ModelSelectModal: React.FC<ModalProps> = ({ open, onClose, onSubmit, max, 
                 className={`${styles.checkboxItem} ${disabled ? styles.disabled : ""}`}
               >
                 <div className={styles.modelInfo}>
-                  {/* 大字：展示模型名，例如 GPT4o-Instruct / Qwen2.5-7B-Instruct */}
                   <strong>{model.displayName}</strong>
-                  {/* 小字：来源，如 OpenAI / deepseek / Alibaba Qwen Team */}
                   <span className={styles.source}>{model.source}</span>
                 </div>
               </Checkbox>
-              );
-            })()
-          ))}
+            );
+          })}
         </div>
       )}
 
       <div className={styles.footer}>
-        <Button onClick={onClose}>{t('modal.cancel')}</Button>
-        <Button type="primary" onClick={handleConfirm} disabled={!selected || selected.length === 0}>
-          {t('modal.confirm')}
+        <Button onClick={onClose}>{t("modal.cancel")}</Button>
+        <Button
+          type="primary"
+          onClick={handleConfirm}
+          disabled={!selected || selected.length === 0}
+        >
+          {t("modal.confirm")}
         </Button>
       </div>
     </Modal>

@@ -127,38 +127,42 @@
 /* ================== 视图切换 Tab ================== */
 .viewToggle {
   display: flex;
-  align-items: flex-end;
-  gap: 4px;
+  align-items: center;
+  gap: 32px;
   margin: 0 auto 24px auto;
-  padding: 0;
-  width: 100%;
+  padding: 0;           /* 去掉侧边内距 */
+  width: 85vw;          /* 对齐底层内容区 */
+  max-width: 1600px;
   background: transparent;
-  border-bottom: 2px solid #D1D5DB;
-  max-width: 100%;
+  border-bottom: 2px solid #e5e7eb;  /* 加深下划线厚颜色 */
 }
 
 .viewToggleButton {
-  padding: 10px 20px;
-  border: 1px solid #D1D5DB;
-  background: #ffffff;
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
-  font-size: 14px;
+  padding: 12px 4px;
+  min-height: auto;
+  border: none;
+  background: transparent;
+  font-size: 16px;
   font-weight: 500;
-  color: #4B5563;
+  color: #64748b;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  position: relative;
+  border-radius: 0;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
 }
 
 .activeToggle {
-  position: relative;
-  background: #1D4ED8;
-  color: #ffffff;
-  border-color: #1D4ED8;
+  color: #0f63c9;
   font-weight: 600;
-  transform: translateY(1px);
-  border-bottom: 1px solid #1D4ED8;
+  border-bottom: 2px solid #0f63c9;
+}
+
+.viewToggleButton:hover:not(.activeToggle) {
+  color: #0f63c9;
+  background: transparent;
 }
 
 /* ================== 可视化区域 (雷达/表格) ================== */
@@ -183,8 +187,8 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  width: 100%;
-  max-width: 1000px;
+  width: 85vw;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -227,9 +231,9 @@
 
 /* 问题区域 */
 .questionSection {
-  background: #F8FAFF;
-  border-bottom: 1px solid #E5E7EB;
-  padding: 20px 24px;
+  background: #eaf3ff; /* 让蓝色加深一点点，和评测部分统一 */
+  border-bottom: 1px solid rgba(210, 222, 235, 0.95);
+  padding: 24px 28px; /* 加高间距，保持一致 */
   flex-shrink: 0;
 }
 
@@ -277,26 +281,36 @@
   flex-shrink: 0;
 }
 .logToggleGroup {
-  display: inline-flex; 
-  padding: 4px; 
-  background: #E5E7EB; 
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  background: #ffffff;
   border-radius: 999px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  margin-top: 16px;
 }
 .logToggle {
-  border: none; 
-  background: transparent; 
-  padding: 6px 16px; 
+  border: none;
+  background: transparent;
+  padding: 6px 16px;
   border-radius: 999px;
-  font-size: 13px; 
-  color: #4B5563; 
-  cursor: pointer; 
-  transition: all 0.2s; 
+  font-size: 14px;
   font-weight: 500;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.logToggle:hover:not(.logToggleActive) {
+  background: #f3f4f6;
+  color: #1f2937;
 }
 .logToggleActive {
-  background: #1D4ED8; 
-  color: #ffffff; 
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background: #0f63c9;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(15, 99, 201, 0.2);
 }
 
 /* ✅ 回答内容区域 - 固定高度 + 滚动 */

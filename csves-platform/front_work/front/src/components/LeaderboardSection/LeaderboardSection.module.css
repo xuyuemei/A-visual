@@ -1,0 +1,283 @@
+.container {
+  max-width: 1400px;
+  width: 95%;
+  margin: 24px auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- 头部标题说明 --- */
+.header {
+  margin-bottom: 24px;
+}
+.header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A2B4B;
+  margin: 0 0 8px 0;
+}
+.header p {
+  font-size: 14px;
+  color: #5B6B8C;
+  margin: 0;
+}
+.updateInfo {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #94A3B8;
+  background: rgba(47, 107, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid #DCE6FF;
+}
+
+/* --- 筛选区面板 --- */
+.filterPanel {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 24px;
+  border: 1px solid #DCE6FF;
+}
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.filterLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5B6B8C;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.tabSelect {
+  display: flex;
+  background: #F5F7FB;
+  border-radius: 6px;
+  padding: 4px;
+}
+.tabOption {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5B6B8C;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+}
+.tabOption:hover {
+  color: #2F6BFF;
+}
+.tabOption.active {
+  background: #FFFFFF;
+  color: #2F6BFF;
+  box-shadow: 0 2px 8px rgba(47, 107, 255, 0.1);
+}
+
+.searchInput {
+  padding: 8px 16px;
+  border: 1px solid #DCE6FF;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #1A2B4B;
+  outline: none;
+  transition: border-color 0.2s ease;
+  min-width: 240px;
+}
+.searchInput:focus {
+  border-color: #2F6BFF;
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.1);
+}
+
+/* --- 维度切换 Tab --- */
+.dimensionTabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(47,107,255,0.08);
+}
+.dimTab {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5B6B8C;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s ease;
+}
+.dimTab:hover {
+  color: #1A2B4B;
+}
+.dimTab.active {
+  color: #2F6BFF;
+  border-bottom-color: #2F6BFF;
+}
+
+/* --- 表格区域 --- */
+.tableWrapper {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #DCE6FF;
+  overflow: hidden;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.table th {
+  padding: 16px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #5B6B8C;
+  background: #F8FAFC;
+  border-bottom: 1px solid #DCE6FF;
+  border-right: 1px solid transparent; /* placeholder */
+}
+.table th:last-child {
+  border-right: none;
+}
+.table td {
+  padding: 16px 24px;
+  font-size: 14px;
+  color: #1A2B4B;
+  border-bottom: 1px solid #F1F5F9;
+  vertical-align: middle;
+}
+.tableRow {
+  transition: all 0.2s ease;
+}
+.tableRow:hover {
+  background: #F8FAFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(47, 107, 255, 0.05);
+}
+.tableRow:last-child td {
+  border-bottom: none;
+}
+
+/* 排名 */
+.rankValue {
+  font-weight: 700;
+  font-size: 16px;
+  color: #5B6B8C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+}
+.rankTop1 { background: linear-gradient(135deg, #FFD700, #FDB931); color: #FFF; box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3); }
+.rankTop2 { background: linear-gradient(135deg, #E0E0E0, #BDBDBD); color: #FFF; }
+.rankTop3 { background: linear-gradient(135deg, #CD7F32, #A0522D); color: #FFF; }
+
+/* 模型名称列 */
+.modelInfo {
+  display: flex;
+  flex-direction: column;
+}
+.modelName {
+  font-weight: 600;
+  color: #1A2B4B;
+  cursor: pointer;
+}
+.modelName:hover {
+  color: #2F6BFF;
+}
+.modelCompany {
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+/* 综合评分进度条 */
+.scoreCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.scoreValue {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1A2B4B;
+  width: 32px;
+}
+.barTrack {
+  width: 100px;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  background: #2F6BFF;
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 各维度评分mini bar */
+.dimCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dimScore {
+  font-size: 13px;
+  font-weight: 500;
+  color: #5B6B8C;
+  width: 24px;
+}
+.dimTrack {
+  width: 40px;
+  height: 4px;
+  background: #E2E8F0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.dimFill {
+  height: 100%;
+  background: #64748B;
+  border-radius: 2px;
+}
+
+/* 趋势 */
+.trendCell {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.trendUp {
+  color: #FF8A00;
+}
+.trendDown {
+  color: #94A3B8;
+}
+.trendFlat {
+  color: #CBD5E1;
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tableRow {
+  animation: fadeInUp 0.4s ease forwards;
+  opacity: 0;
+}

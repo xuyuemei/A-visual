@@ -5,7 +5,7 @@
 
 import sys
 import os
-sys.path.append('/data/hlt/A-visual/bishework/backened')
+sys.path.append('/data/hlt/A-visual/csves-platform/backened')
 
 from complete_migration_plan import QuestionMigrationManager
 

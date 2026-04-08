@@ -10,26 +10,34 @@
   backdrop-filter: blur(10px);
   border-bottom: 1px solid #e6ebf5;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out; /* 增加过渡动画 */
 }
 
 .navbarContainer {
+  --nav-v-padding: calc(10px + 0.2cm);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: var(--nav-v-padding) calc(20px + 0.4cm);
 }
 
-/* 左侧区域 */
-.navbarLeft {
+.logoContainer {
   display: flex;
   align-items: center;
+  gap: 12px;
+  cursor: pointer;
 }
 
 .logoText {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1d4ed8;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f63c9;
+  letter-spacing: 0.5px;
+}
+
+.navbarHome .logoText {
+  color: #ffffff;
 }
 
 /* 右侧导航区域 */
@@ -37,15 +45,17 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: color 0.3s ease; /* 增加文字颜色渐变动画 */
 }
 
 .navButton {
-  padding: 8px 16px;
+  position: relative;
+  padding: 8px calc(16px + 0.1cm);
   border: 1px solid transparent;
   background: transparent;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #334155;
   transition: all 0.18s ease;
@@ -57,20 +67,64 @@
 }
 
 .active {
-  background: #ffffff;
+  background: transparent;
   color: #1d4ed8;
-  border-color: #e6ebf5;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+  box-shadow: none;
+  font-weight: 700;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--nav-v-padding) * -1);
+  transform: translateX(-50%);
+  width: 72%;
+  height: 3px;
+  background: #4f7cff;
+  border-radius: 999px;
+  transition: background 0.3s ease;
+}
+
+/* ---------------------------------
+   首页专属暗蓝科幻导航栏样式 (不滚动时)
+   --------------------------------- */
+.navbarHome {
+  background: transparent; /* 完全透明，和页面背景同体 */
+  backdrop-filter: none; /* 去掉模糊避免颜色加深 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* 仅留极细的下划线分隔 */
+  box-shadow: none; /* 去掉阴影让完全与背景融在一起 */
+}
+
+.navbarHome .navButton {
+  color: #94A3B8;
+}
+
+.navbarHome .navButton:hover:not(.active) {
+  background: rgba(47, 107, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.navbarHome .active {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.navbarHome .active::after {
+  background: #2F6BFF;
+  box-shadow: 0 0 8px rgba(47, 107, 255, 0.8);
+}
+
+.navbarHome .navbarRight {
+  color: #E2E8F0;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .navbarContainer {
-    padding: 10px 16px;
-  }
-
-  .logoText {
-    font-size: 16px;
+    --nav-v-padding: calc(10px + 0.2cm);
+    padding: var(--nav-v-padding) calc(16px + 0.4cm);
   }
 
   .navbarRight {
@@ -78,18 +132,19 @@
   }
 
   .navButton {
-    padding: 6px 12px;
-    font-size: 13px;
+    padding: 6px calc(12px + 0.1cm);
+    font-size: 15px;
   }
 }
 
 @media (max-width: 480px) {
   .navbarContainer {
-    padding: 8px 12px;
+    --nav-v-padding: calc(8px + 0.2cm);
+    padding: var(--nav-v-padding) calc(12px + 0.4cm);
   }
 
   .navButton {
-    padding: 6px 10px;
-    font-size: 12px;
+    padding: 6px calc(10px + 0.1cm);
+    font-size: 14px;
   }
 }

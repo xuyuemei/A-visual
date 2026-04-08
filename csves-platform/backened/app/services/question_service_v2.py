@@ -7,7 +7,7 @@ import json
 ORIGINAL_QUESTION_FILE = "/data/hlt/A-visual/mark/500_question_answer.xlsx"
 
 # 新的保留问题文件
-RESERVED_QUESTIONS_FILE = "/data/hlt/A-visual/bishework/backened/reserved_questions.json"
+RESERVED_QUESTIONS_FILE = "/data/hlt/A-visual/csves-platform/backened/reserved_questions.json"
 
 def extract_questions_original(n=5):
     """从原始Excel随机抽n个问题（用于对比测试）"""

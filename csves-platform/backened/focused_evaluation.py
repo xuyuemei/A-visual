@@ -14,7 +14,7 @@ import sys
 import os
 
 # 添加路径以导入后端模块
-sys.path.append('/data/hlt/A-visual/bishework/backened')
+sys.path.append('/data/hlt/A-visual/csves-platform/backened')
 
 def load_original_questions():
     """加载原始问题（91个）"""

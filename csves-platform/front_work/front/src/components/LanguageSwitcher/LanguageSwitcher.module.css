@@ -1,0 +1,18 @@
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.3s ease;
+  margin-right: 16px;
+}
+
+.iconBtn:hover {
+  background-color: rgba(47, 107, 255, 0.1);
+  color: #2F6BFF;
+  transform: scale(1.05);
+}

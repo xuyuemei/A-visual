@@ -7,7 +7,7 @@
 
 ### 第一步：导入保留问题
 ```bash
-cd /data/hlt/A-visual/bishework/backened
+cd /data/hlt/A-visual/csves-platform/backened
 python import_questions.py
 ```
 
@@ -42,7 +42,7 @@ python run.py
 
 2. 启动前端服务：
 ```bash
-cd /data/hlt/A-visual/bishework/front_work/front
+cd /data/hlt/A-visual/csves-platform/front_work/front
 yarn dev --host
 ```
 

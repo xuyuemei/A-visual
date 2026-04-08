@@ -1,16 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
+import { BarChartOutlined, ApartmentOutlined, RadarChartOutlined } from "@ant-design/icons";
 import styles from "./Main.module.css";
 
 // 组件导入
 import ComparePool from "../../components/ComparePool/ComparePool";
 import EvaluateSection from "../../components/EvaluateSection/EvaluateSection";
-import HistorySection from "../../components/HistorySection/HistorySection";
 import TextScoreSection from "../../components/TextScoreSection/TextScoreSection";
 import VideoUploadSection from "../../components/VideoUploadSection/VideoUploadSection";
+import LeaderboardSection from "../../components/LeaderboardSection/LeaderboardSection";
 
 type ActiveTab = "evaluate" | "history" | "text" | "model" | "video";
+type EvalPanelTab = "leaderboard" | "realtime";
 
 const VALID_TABS: ActiveTab[] = ["evaluate", "history", "text", "model", "video"];
 
@@ -19,40 +21,41 @@ const isValidTab = (value: string | null): value is ActiveTab => {
 };
 
 interface HeroBlockProps {
-  eyebrow: string;
   title: string;
   subtitle: string;
   descriptions: string[];
-  chips: string[];
+  highlights?: Array<{ value: React.ReactNode; label?: string }>;
   imageAlt?: string;
 }
 
 const HeroBlock: React.FC<HeroBlockProps> = ({
-  eyebrow,
   title,
   subtitle,
   descriptions,
-  chips,
+  highlights,
   imageAlt = "价值罗盘主视觉",
 }) => {
+  const visibleDescriptions = descriptions.filter((text) => text.trim().length > 0);
+
   return (
     <div className={styles.heroLayout}>
       <div className={styles.heroTextColumn}>
         <div className={styles.heroTextInner}>
-          <div className={styles.heroEyebrow}>{eyebrow}</div>
-
           <h2 className={styles.sectionTitle}>{title}</h2>
           <p className={styles.sectionSubtitleMain}>{subtitle}</p>
 
-          <div className={styles.heroChipRow}>
-            {chips.map((chip, index) => (
-              <span key={`${chip}-${index}`} className={styles.heroChip}>
-                {chip}
-              </span>
-            ))}
-          </div>
+          {highlights && highlights.length > 0 && (
+            <div className={styles.heroInsightRow}>
+              {highlights.map((item, index) => (
+                <div key={`insight-${index}`} className={styles.heroInsightItem}>
+                  <div className={styles.heroInsightValue}>{item.value}</div>
+                  {item.label && <div className={styles.heroInsightLabel}>{item.label}</div>}
+                </div>
+              ))}
+            </div>
+          )}
 
-          {descriptions.map((text, index) => (
+          {visibleDescriptions.map((text, index) => (
             <p key={`${title}-desc-${index}`} className={styles.sectionIntro}>
               {text}
             </p>
@@ -62,16 +65,7 @@ const HeroBlock: React.FC<HeroBlockProps> = ({
 
       <div className={styles.heroImageColumn}>
         <div className={styles.heroImageShell}>
-          <div className={styles.heroImageTopBar}>
-            <span className={styles.heroDot} />
-            <span className={styles.heroDot} />
-            <span className={styles.heroDot} />
-            <span className={styles.heroTopLabel}>VALUE COMPASS / SYSTEM PANEL</span>
-          </div>
-
-          <div className={styles.heroImageFrame}>
-            <img src="/logo.png" alt={imageAlt} className={styles.heroImage} />
-          </div>
+          <img src="/logo.png" alt={imageAlt} className={styles.heroImage} />
         </div>
       </div>
     </div>
@@ -83,6 +77,7 @@ const Main: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [selectedModels, setSelectedModels] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<ActiveTab>("evaluate");
+  const [evalPanelTab, setEvalPanelTab] = useState<EvalPanelTab>("leaderboard");
 
   useEffect(() => {
     const tabParam = searchParams.get("tab");
@@ -95,9 +90,54 @@ const Main: React.FC = () => {
     setSelectedModels(models);
   };
 
-  const homeDescriptions = useMemo(
-    () => [t("home.description1"), t("home.description2")],
-    [t]
+  const renderEvalWorkspace = () => {
+    return (
+      <>
+        <div className={styles.evalSwitchBar}>
+          <button
+            type="button"
+            className={`${styles.evalSwitchTab} ${
+              evalPanelTab === "leaderboard" ? styles.evalSwitchTabActive : ""
+            }`}
+            onClick={() => setEvalPanelTab("leaderboard")}
+          >
+            评测榜单
+          </button>
+          <button
+            type="button"
+            className={`${styles.evalSwitchTab} ${
+              evalPanelTab === "realtime" ? styles.evalSwitchTabActive : ""
+            }`}
+            onClick={() => setEvalPanelTab("realtime")}
+          >
+            实时评测
+          </button>
+        </div>
+
+        {evalPanelTab === "realtime" ? (
+          <>
+            <div className={styles.poolWrapper}>
+              <ComparePool onModelsChange={handleModelsChange} />
+            </div>
+            <EvaluateSection selectedModels={selectedModels} />
+          </>
+        ) : (
+          <LeaderboardSection />
+        )}
+      </>
+    );
+  };
+
+  const homeDescriptions = useMemo(() => [], []);
+
+  const homeHighlights = useMemo(
+    () => [
+      { value: "30", label: "可选模型" },
+      { value: <ApartmentOutlined />, label: "模型对比" },
+      { value: <RadarChartOutlined />, label: "价值观罗盘" },
+      { value: <BarChartOutlined />, label: "结果分析" },
+    ],
+    []
   );
 
   const textDescriptions = useMemo(
@@ -109,10 +149,7 @@ const Main: React.FC = () => {
     [t]
   );
 
-  const modelDescriptions = useMemo(
-    () => [t("modelEvaluation.description1"), t("modelEvaluation.description2")],
-    [t]
-  );
+  const modelDescriptions = useMemo(() => [], []);
 
   const videoDescriptions = useMemo(
     () => [t("videoEvaluation.description1"), t("videoEvaluation.description2")],
@@ -121,65 +158,55 @@ const Main: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.scrollContainer}>
+      <div
+        className={`${styles.scrollContainer} ${
+          activeTab === "evaluate" || activeTab === "model" ? styles.noOuterFrame : ""
+        }`}
+      >
         {activeTab === "evaluate" ? (
           <section className={styles.topSection}>
             <HeroBlock
-              eyebrow="AI VALUE ALIGNMENT PLATFORM"
               title={t("home.title")}
               subtitle={t("home.subtitle")}
               descriptions={homeDescriptions}
-              chips={["Explainability", "Model Comparison", "Structured Evaluation"]}
+              highlights={homeHighlights}
             />
-            <div className={styles.poolWrapper}>
-              <ComparePool onModelsChange={handleModelsChange} />
-            </div>
-            <EvaluateSection selectedModels={selectedModels} />
+            {renderEvalWorkspace()}
           </section>
         ) : activeTab === "text" ? (
           <section className={styles.textScoreSection}>
             <HeroBlock
-              eyebrow="TEXT SCORING ENGINE"
               title={t("textScoring.title")}
               subtitle={t("textScoring.subtitle")}
               descriptions={textDescriptions}
-              chips={["Semantic Scoring", "Core Values", "Evidence Driven"]}
             />
             <TextScoreSection />
           </section>
         ) : activeTab === "model" ? (
           <section className={styles.modelEvaluationSection}>
             <HeroBlock
-              eyebrow="MODEL EVALUATION WORKSPACE"
               title={t("modelEvaluation.title")}
               subtitle={t("modelEvaluation.subtitle")}
               descriptions={modelDescriptions}
-              chips={["Benchmark View", "Value Analysis", "Comparative Review"]}
             />
-            <div className={styles.poolWrapper}>
-              <ComparePool onModelsChange={handleModelsChange} />
-            </div>
-            <EvaluateSection selectedModels={selectedModels} />
+            {renderEvalWorkspace()}
           </section>
         ) : activeTab === "video" ? (
           <section className={styles.videoEvaluationSection}>
             <HeroBlock
-              eyebrow="MULTIMODAL VIDEO ANALYSIS"
               title={t("videoEvaluation.title")}
               subtitle={t("videoEvaluation.subtitle")}
               descriptions={videoDescriptions}
-              chips={["Video Upload", "Scene Understanding", "Multimodal Review"]}
             />
             <VideoUploadSection />
           </section>
         ) : activeTab === "history" ? (
           <section className={styles.historySection}>
             <div className={styles.sectionHeader}>
-              <div className={styles.heroEyebrow}>RECORDS / TRACE / REVIEW</div>
-              <h2 className={styles.sectionTitle}>{t("history.title")}</h2>
-              <p className={styles.sectionSubtitle}>{t("history.subtitle")}</p>
+              <h2 className={styles.sectionTitle}>{t("navigation.history")}</h2>
+              <p className={styles.sectionSubtitle}>各主流大语言模型基于社会主义核心价值观的评测排行</p>
             </div>
-            <HistorySection />
+            <LeaderboardSection />
           </section>
         ) : null}
       </div>

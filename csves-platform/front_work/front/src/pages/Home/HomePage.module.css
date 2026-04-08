@@ -1,211 +1,233 @@
-/* HomePage.module.css */
-
-:root {
-  --primary-color: #1d4ed8;
-  --primary-hover: #1e40af;
-  --secondary-color: #64748b;
-  --background: #f8fafc;
-  --card-bg: #ffffff;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --border-color: #e2e8f0;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-  --radius: 12px;
-  --radius-lg: 16px;
-}
-
 .container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #F8FAFC;
   min-height: 100vh;
-  background: radial-gradient(1200px 600px at 18% 0%, #eef5ff 0%, #f6f8fc 55%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  padding-top: 70px; /* 为固定导航栏留出空间 */
+  color: #1A2B4B;
+  overflow-x: hidden;
 }
 
-/* Features Section */
-.featuresSection {
-  padding: 60px 20px;
-  background: white;
+/* ============================
+   1️⃣ 满屏深蓝科技英雄区
+============================ */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 深蓝渐变背景 */
+  background: linear-gradient(135deg, #0A1F44 0%, #142E6E 50%, #1E3A8A 100%);
+  overflow: hidden;
 }
 
-.featuresContainer {
+/* 背景几何网格 */
+.gridOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(47, 107, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 107, 255, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+}
+
+/* 巨型罗盘容器 - 占满屏幕中心 */
+.giantCompassContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140vh; /* 使用视口高度保证圆不变形并且占据绝大部分放大 */
+  height: 140vh;
+  max-width: 1400px;
+  max-height: 1400px;
+  z-index: 2;
+  perspective: 1500px;
+}
+
+.compassSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.outerRingLines {
+  opacity: 0.15;
+}
+
+
+/* 中心文字区 */
+.centerContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerCard {
+  background: transparent; /* 为了跟深蓝背景融合，不需明显的托底 */
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.mainTitle {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0.5rem 0 1rem 0;
+  letter-spacing: 6px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+.subTitle {
+  font-size: 1.6rem;
+  color: #E2E8F0;
+  font-weight: 500;
+  letter-spacing: 8px;
+  margin-bottom: 3.5rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.startBtn {
+  background: linear-gradient(135deg, #2F6BFF, #1C4ED8);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 1.2rem 3rem;
+  font-size: 1.2rem;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 25px rgba(28, 78, 216, 0.5);
+}
+
+.startBtn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(47, 107, 255, 0.7);
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+}
+
+/* 滚动提示箭头 */
+.scrollHint {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  letter-spacing: 3px;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+  40% { transform: translateY(-12px) translateX(-50%); }
+  60% { transform: translateY(-6px) translateX(-50%); }
+}
+
+/* ============================
+   2️⃣ 以下为浅色 UI 内容层
+============================ */
+.contentWrapper {
+  position: relative;
+  z-index: 5;
+  background-color: #F8FAFC;
+  box-shadow: 0 -30px 60px rgba(0,0,0,0.15); /* 增大阴影增加浮现感 */
+}
+
+.cardsSection {
+  padding: 8rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.sectionTitle {
-  font-size: 2.5rem;
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.darkTitle {
+  font-size: 2.6rem;
   font-weight: 800;
-  text-align: center;
-  margin-bottom: 16px;
-  color: var(--text-primary);
+  color: #1A2B4B;
+  margin-bottom: 1.2rem;
 }
 
-.sectionSubtitle {
-  font-size: 1.125rem;
-  text-align: center;
-  margin-bottom: 60px;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+.darkDesc {
+  font-size: 1.2rem;
+  color: #64748B;
 }
 
-.cardsGrid {
+.cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
 }
 
-/* Card Container */
-.cardContainer {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+.card {
+  background: #FFFFFF;
+  border: 1px solid rgba(47,107,255,0.1);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  background-image: linear-gradient(to bottom right, #FFFFFF, #F8FAFC);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow-md);
-  background: var(--card-bg);
+  text-align: center;
 }
 
-.cardContainer:hover {
+.card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-}
-
-.cardBg {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-}
-
-.bgImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.cardContainer:hover .bgImage {
-  transform: scale(1.05);
-}
-
-.cardContent {
-  padding: 24px;
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.cardLeft {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  box-shadow: 0 15px 35px rgba(47, 107, 255, 0.1);
+  background-image: linear-gradient(to bottom right, #FFFFFF, #EBF0FF);
 }
 
 .cardIcon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
+  font-size: 3.5rem;
+  color: #2F6BFF;
+  margin-bottom: 1.8rem;
+  transition: transform 0.3s ease;
 }
 
-.cardLeft div {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
+.card:hover .cardIcon {
+  transform: scale(1.1);
 }
 
-.cardRight {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--primary-color);
-  font-size: 0.875rem;
-  font-weight: 500;
+.card h3 {
+  font-size: 1.6rem;
+  color: #1A2B4B;
+  margin-bottom: 1.2rem;
 }
 
-.moreText {
-  transition: color 0.2s ease;
+.card p {
+  color: #64748B;
+  line-height: 1.7;
 }
 
-.cardContainer:hover .moreText {
-  color: var(--primary-hover);
-}
-
-.arrowIcon {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.2s ease;
-}
-
-.cardContainer:hover .arrowIcon {
-  transform: translateX(2px);
-}
-
-.tagBox {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.tag {
-  background: rgba(29, 78, 216, 0.1);
-  border-radius: 20px;
-  padding: 4px 12px;
-}
-
-.tagName {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--primary-color);
-}
-
-.cardDesc {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-
-/* Footer */
 .footer {
-  background: var(--text-primary);
-  color: white;
-  padding: 40px 20px;
   text-align: center;
-}
-
-.footerContent {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding-top: 60px;
-  }
-
-  .cardsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .sectionTitle {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .featuresSection {
-    padding: 40px 16px;
-  }
-
-  .sectionTitle {
-    font-size: 1.75rem;
-  }
+  padding: 4rem;
+  color: #94A3B8;
+  border-top: 1px solid rgba(47,107,255,0.1);
 }

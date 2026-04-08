@@ -34,7 +34,7 @@
   },
   "navigation": {
     "home": "首页",
-    "modelEvaluation": "模型评估",
+    "modelEvaluation": "模型评测",
     "textScoring": "文本评分",
     "history": "历史记录"
   },

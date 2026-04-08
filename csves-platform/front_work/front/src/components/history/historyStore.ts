@@ -12,12 +12,21 @@ export interface AnalysisResult {
 }
 // ------------------------------------------------------------------------------------------
 
+// ✅ 新增：打分器证据的单条记录类型
+export interface EvidenceItem {
+  token: string;
+  score: number;
+}
+
 // 问答对的接口 (已更新)
 export interface QAItem {
   question: string;
   answer: string;
   // ✅ 新增：可选的分析结果字段
   analysis?: AnalysisResult;
+  // ✅ 新增：打分器通过 Integrated Gradients 生成的可视化归因证据
+  // 结构通常为 { "维度名": EvidenceItem[] }
+  visualEvidence?: Record<string, EvidenceItem[]>;
 }
 
 // 记录类型枚举
@@ -29,23 +38,23 @@ export interface HistoryRecord {
   timestamp: string;
   type: RecordType; // 记录类型
 
-  // 模型评估专用字段
+  // 模型评测专用字段
   modelInfos?: Array<{
     name: string; // 技术名
     displayName: string; // 展示名
   }>;
 
-  // 按模型展示名存储问答列表 (Key: displayName) - 模型评估专用
+  // 按模型展示名存储问答列表 (Key: displayName) - 模型评测专用
   qaByModel?: Record<string, QAItem[]>;
 
-  // 按模型展示名存储分数 (Key: displayName) - 模型评估和视频分析都用
+  // 按模型展示名存储分数 (Key: displayName) - 模型评测和视频评测都用
   scoresByModel?: Record<string, Record<string, number>>;
 
   // 文本评分专用字段
   textContent?: string;
   textAnalysis?: string;
 
-  // 视频分析专用字段
+  // 视频评测专用字段
   videoInfo?: {
     filename: string;
     duration: number;

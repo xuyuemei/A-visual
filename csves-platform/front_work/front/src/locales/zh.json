@@ -41,10 +41,10 @@
   },
   "navigation": {
     "home": "首页",
-    "textScoring": "文本评分",
-    "modelEvaluation": "模型评估",
+    "textScoring": "图文评测",
+    "modelEvaluation": "模型评测",
     "videoEvaluation": "视频分析",
-    "history": "历史记录"
+    "history": "模型榜单"
   },
   "hero": {
     "title": "C-Voices",
@@ -60,18 +60,18 @@
     "openQuestionMode": "开放问题模式：随机抽取评估问题，基于模型生成的回答内容进行12维度评分。",
     "choiceQuestionMode": "选择题问答模式：针对价值观困境呈现A/B选项(支持/反对)，统计模型对各维度上的支持率。",
     "conclusion": "通过这两种评估模式，C-Voices 能够帮助您快速洞察不同模型在国家、社会及个人层面的价值取向与潜在风险。",
-    "featureModulesTitle": "功能模块",
-    "featureModulesSubtitle": "选择你需要的功能模块，开始智能评测之旅",
-    "textEvaluation": "文本评分",
-    "modelEvaluation": "模型评估",
+    "featureModulesTitle": "智能评测入口",
+    "featureModulesSubtitle": "请选择你当前需要的功能模块，我们将引导你快速开启智能评测之旅",
+    "textEvaluation": "图文评测",
+    "modelEvaluation": "模型评测",
     "modelEvaluationDescription": "对不同大语言模型进行统一价值维度评测与横向对比，帮助用户理解模型价值倾向特征，为模型选择、对齐优化与安全评估提供依据。",
-    "videoEvaluation": "视频分析",
+    "videoEvaluation": "视频评测",
     "historyRecords": "历史记录",
     "learnMore": "了解更多"
   },
   "videoEvaluation": {
     "title": "视频价值观 12 维度评分",
-    "subtitle": "多模态视频分析，结合视觉内容和音频对话进行价值观评估",
+    "subtitle": "多模态视频评测，结合视觉内容和音频对话进行价值观评估",
     "description1": "本功能通过多模态AI技术，对视频内容进行深度分析。系统自动提取关键帧进行视觉分析，同时转录音频对话，综合评估视频内容的价值观取向。",
     "description2": "适用于教育视频、宣传片、新闻报道、纪录片等各类视频内容的价值观分析，帮助内容创作者和监管部门快速评估视频的价值导向。"
   },
@@ -133,7 +133,7 @@
       "submit": "提交答案",
       "skip": "跳过",
       "progress": "进度 {{current}}/{{total}}",
-      "extracted": "本次抽取的问题："
+      "extracted": "评测问题列表："
     },
     "results": {
       "title": "评估结果",
@@ -148,7 +148,7 @@
       "shareResults": "分享结果"
     },
     "buttons": {
-      "reshuffle": "重新抽取此问题",
+      "reshuffle": "重新抽取",
       "reshuffleAll": "重新抽取",
       "confirmEvaluation": "确认评估"
     },

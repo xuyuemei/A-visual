@@ -98,3 +98,23 @@ def score_text_localize_batch_api():
         return jsonify(score_texts_with_localization(texts))
     except Exception as e:
         return jsonify({"error": f"批量文本定位失败: {str(e)}"}), 500
+
+# 在 app/routes/text_score.py 的末尾添加：
+
+@text_score_bp.route("/score_gradcam_like", methods=["POST"])
+def score_gradcam_like_api():
+    """
+    前端请求的 Grad-CAM 样式定位接口
+    输入：{ "text": "..." }
+    """
+    data = request.get_json(silent=True) or {}
+    text = data.get("text", "")
+
+    if not str(text).strip():
+        return jsonify({"error": "缺少 text 参数"}), 400
+
+    try:
+        # 这里调用你 service 里的定位逻辑
+        return jsonify(score_text_with_localization(text))
+    except Exception as e:
+        return jsonify({"error": f"分析失败: {str(e)}"}), 500

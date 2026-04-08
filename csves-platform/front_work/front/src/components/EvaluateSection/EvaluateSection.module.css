@@ -1,11 +1,64 @@
-/* 页面整体容器 */
 .container {
-  padding: 16px 24px 32px;
-  background: #f9faff;
+  --brand-primary: #1d4ed8;
+  --brand-primary-strong: #2563eb;
+  --brand-primary-soft: #dbeafe;
+  --brand-cyan-soft: #e0f2fe;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  --panel-bg: rgba(255, 255, 255, 0.92);
+  --panel-bg-soft: rgba(248, 250, 252, 0.92);
+  --panel-border: rgba(226, 232, 240, 0.95);
+  --panel-border-strong: rgba(203, 213, 225, 0.95);
+
+  --success-bg: rgba(220, 252, 231, 0.9);
+  --success-text: #166534;
+  --success-border: rgba(134, 239, 172, 0.9);
+
+  --error-bg: rgba(254, 226, 226, 0.92);
+  --error-text: #b91c1c;
+  --error-border: rgba(252, 165, 165, 0.95);
+
+  --warning-bg: linear-gradient(180deg, #fffaf5 0%, #fff7ed 100%);
+  --warning-text: #9a3412;
+  --warning-border: #fb923c;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.04);
+  --shadow-medium: 0 14px 36px rgba(31, 107, 216, 0.07);
+  --shadow-strong: 0 18px 40px rgba(15, 23, 42, 0.08);
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  position: relative;
+  isolation: isolate;
+  padding: 20px 0 40px;
+  background: transparent;
   min-height: auto;
   height: auto;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-variant-numeric: tabular-nums;
+}
+
+.container::before {
+  content: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(31, 107, 216, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 107, 216, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 48%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* 模块标题 */
@@ -55,32 +108,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
-/* 带箭头的卡片布局 */
+/* 评测问题列表等直出卡片：与模型池宽度保持一致 */
+.cardContainer > .card {
+  width: calc(100% - (var(--page-padding-x) * 2));
+  max-width: 1254px; /* 恢复和上面模型池对齐的 1254px */
+  border-color: rgba(162, 174, 190, 0.95);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.cardContainer > .card:hover {
+  transform: none;
+  border-color: rgba(162, 174, 190, 0.95);
+  box-shadow: none;
+}
+
 .cardWithArrows {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 20px;
-  width: 100%;
-  max-width: 1100px; /* 放宽整体区域，接近容器宽度的约 4/5 */
+  gap: 18px;
+  width: 85vw;          /* 拉宽占页面六分之五(约85%) */
+  max-width: 1600px;    /* 最大到 1600px，这样在1920屏上就是六分之五宽 */
   margin: 0 auto;
   position: relative;
 }
 
-/* 箭头样式 - 无背景，灰色 */
 .arrow {
-  background: transparent;
-  border: none;
+  align-self: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(203, 213, 225, 0.75);
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 50%;
   cursor: pointer;
-  color: #666; /* 灰色 */
+  color: #475569;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  padding: 10px;
+  transition: all 0.22s ease;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.arrow:hover {
+  color: #1d4ed8;
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px) scale(1.04);
 }
 
 /* 放大左右切换的尖括号图标 */
@@ -97,11 +174,6 @@
   order: 1;
 }
 
-.card {
-  order: 2;
-  flex: 1;
-  max-width: 1040px; /* 再加宽卡片，使确认区域和问答卡片更接近全宽 */
-}
 
 .arrowRight {
   order: 3;
@@ -109,17 +181,30 @@
 
 /* 单个问题-回答卡片 - 分离式布局（基础样式：自适应高度） */
 .card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 0;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transition: all 0.25s ease;
-  border: 1px solid #eef1f6;
+  order: 2;
+  flex: 1;
+  max-width: none;     /* 解除内侧宽度限制，由外侧容器决定 */
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative; /* 为计数器提供定位上下文 */
+  position: relative;
   overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(162, 174, 190, 0.95);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.08),
+    0 8px 24px rgba(31, 107, 216, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.24);
+  box-shadow:
+    0 28px 70px rgba(15, 23, 42, 0.1),
+    0 10px 28px rgba(31, 107, 216, 0.1);
 }
 
 /* 仅用于主问答视图的高卡片，抽取问题/日志仍用基础 .card */
@@ -129,10 +214,10 @@
 
 /* 问题区域 - 固定在上方 */
 .questionSection {
-  background: #f4f8ff; /* 纯色浅蓝背景，与模型池风格保持一致 */
-  border-bottom: 1px solid #eef1f6;
-  padding: 20px 24px;
-  flex-shrink: 0; /* 防止被压缩 */
+  background: #eaf3ff; /* 让蓝色更深一点点，原为 #f8fbff / eaf2fb */
+  border-bottom: 1px solid rgba(210, 222, 235, 0.95);
+  padding: 24px 28px 24px; /* 上下左右增加间距，使之显得更高 */
+  flex-shrink: 0;
 }
 
 .questionHeader {
@@ -167,37 +252,42 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: #ffffff;
   padding-bottom: 0; /* 🔹 移除底部padding，因为分析组件现在在外部 */
 }
 
 .answerHeader {
-  padding: 16px 24px 12px;
-  background: white;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 18px 20px 12px;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.92) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
   flex-shrink: 0;
 }
+
 
 /* 回答内容 + 分析组件 等宽横向布局 */
 .answerRow {
   flex: 1;
-  display: flex;
-  gap: 16px;
-  padding: 0 24px 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(300px, 2fr);
+  gap: 24px;
+  padding: 0 24px 20px;
   box-sizing: border-box;
+  align-items: start;
 }
 
 .answerColumn {
-  flex: 3; /* 左侧回答区域明显更宽 */
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  min-width: 0; /* 防止内容撑破 */
 }
 
 .analysisColumn {
-  flex: 1; /* 右侧深度分析保持较窄 */
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  gap: 16px;
 }
 
 /* 让回答内容在自己的列里滚动 */
@@ -215,36 +305,30 @@
 /* 通用内容区域：用于抽取问题卡片、日志等，自适应高度 */
 .answerContent {
   flex: 1;
-  padding: 0 24px 20px;
+  padding: 0 24px 22px;
   overflow-y: auto;
+  background: transparent;
   font-size: 14px;
-  color: #444;
-  line-height: 1.6;
-  white-space: normal; /* 使用默认换行规则，避免 Markdown 文本的换行被放大为空行 */
-  margin-bottom: 0; /* 🔹 移除底部margin */
-}
-
-/* 主回答区域专用：固定显示高度约 8cm，文本超出时在内部滚动查看 */
-.answerContentMain {
-  flex: none;
-  height: 520px; /* 增加到 520px，提供更多显示空间 */
-  padding: 0 24px 20px;
-  overflow-y: auto;
-  font-size: 14px;
-  color: #444;
-  line-height: 1.6;
+  color: #475569;
+  line-height: 1.72;
   white-space: normal;
   margin-bottom: 0;
 }
 
-/* 回答正文：首段稍微下移，所有段落首行缩进两个字符，但数字标题段落不缩进 */
-.answerContentMain p:first-of-type {
-  margin-top: 0.2cm;
+/* 主回答区域专用：固定显示高度约 8cm，文本超出时在内部滚动查看 */
+.answerContentMain {
+  flex: 1;
+  min-height: 560px;
+  margin: 12px 0 0;
+  padding: 0 8px; /* 增加一点内边距保证不贴边 */
+  overflow-y: auto;
+  background: transparent; /* 去掉原本的渐变和深色边框 */
+  border: none;
+  box-shadow: none;
 }
 
-.answerContentMain p {
-  text-indent: 2em;
-}
+
+
 
 /* 数字小标题特殊样式：让 一、二、三、四、等标题更突出，但只加粗不改变大小 */
 .answerContentMain p > strong:first-child {
@@ -252,19 +336,8 @@
   color: #1f2937;
 }
 
-/* 数字标题段落：取消缩进并增加间距，但保持正常字体大小 */
-.answerContentMain p:has(> strong:first-child) {
-  font-weight: 400;
-  margin: 16px 0 10px !important;
-  padding-left: 0 !important;
-  text-indent: 0 !important;
-  font-size: 14px;
-}
 
-/* 列表项文本也保持与段落一致的首行缩进效果 */
-.answerContentMain li {
-  text-indent: 2em;
-}
+
 
 /* 🔹 Markdown 排版优化：控制段落/标题/列表间距与层级感 */
 .answerContent p {
@@ -345,12 +418,13 @@
 /* 五条细线计数器 - 调整位置 */
 .lineCounter {
   display: flex;
-  gap: 4px; /* 紧凑间距 */
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: center;
-  padding: 10px 0 4px; /* 与内容之间增加间距 */
+  padding: 14px 18px 8px;
   background: transparent;
-  position: static; /* 不再绝对定位，避免与文字重叠 */
-  margin-top: 8px;  /* 和上方结构隔开 */
+  position: static;
+  margin-top: 4px;
 }
 
 .line {
@@ -445,13 +519,15 @@
 /* 可视化区域 */
 .visualizationSection {
   margin-top: 40px;
-  /* 顶部保持 20px，左右和底部各增加约 0.5cm 的留白 */
-  padding: 20px 40px 40px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  /* 让可视化区域整体比容器窄约 3.6cm，并保持居中 */
-  max-width: calc(100% - 3.6cm);
+  padding: 24px 40px 40px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 24px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.08),
+    0 8px 24px rgba(31, 107, 216, 0.08);
+  backdrop-filter: blur(12px);
+  max-width: calc(100% - 3.2cm);
   margin-left: auto;
   margin-right: auto;
 }
@@ -464,71 +540,81 @@
 /* 视图切换菜单 */
 .viewToggle {
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  margin: 0 auto 24px auto; /* 再加大与下方内容的距离，避免视觉重叠 */
+  align-items: center;  /* 改为center，让横线在最底 */
+  gap: 32px;            /* 间距拉大 */
+  margin: 0 auto 24px auto;
   padding: 0;
-  width: 100%;
+  width: 100%;          /* 填满父容器 */
   background: transparent;
-  border-bottom: 2px solid #1f6bd8; /* 参考图的蓝色基线 */
+  border-bottom: 2px solid #e5e7eb; /* 加深底线颜色/厚度一点显眼 */
 }
 
 .toggleButton {
-  padding: 12px 22px; /* 更宽更高 */
-  border: 1px solid #d6dae5; /* 淡灰边框 */
-  background: #ffffff; /* 非激活白底 */
-  border-bottom: none;
-  border-radius: 10px 10px 0 0;
-  font-size: 14px;
+  padding: 12px 4px;
+  min-height: auto;
+  border: none;
+  background: transparent;
+  font-size: 16px;
   font-weight: 500;
-  color: #667085; /* 灰色文字 */
+  color: #64748b;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  position: relative;
+  border-radius: 0;
+  margin-bottom: -1px;  /* 使被选中的蓝线能盖过底部的灰线 */
+  border-bottom: 2px solid transparent;
+  box-shadow: none;
 }
 
 .activeToggle {
-  position: relative;
-  background: #1f6bd8; /* 中等蓝 */
-  color: #ffffff;
-  border-color: #1f6bd8;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  color: #0f63c9;
+  font-weight: 600;
+  border-bottom: 2px solid #0f63c9; /* 选中的蓝线 */
 }
-
-/* 不再覆盖底部蓝色基线，保证整条蓝线贯穿不断 */
+/* 先把多余的悬浮特效去掉，保持干净 */
 .activeToggle::after { content: none; }
 
 .toggleButton:hover:not(.activeToggle) {
-  color: #1f6bd8;
-  background: #f6f8ff;
-  border-color: #c5d4ff;
+  color: #0f63c9;
+  background: transparent;
 }
 
 /* 模型切换 Tab - 胶囊滑块样式 */
 .logToggleGroup {
   display: inline-flex;
-  padding: 2px;
-  background: #e5e7eb;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  background: #ffffff;
   border-radius: 999px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  margin-top: 16px; /* 增加和上方题目的距离 */
 }
 
 .logToggle {
   border: none;
-  background: #ffffff;
-  padding: 6px 18px;
+  background: transparent;
+  padding: 6px 16px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 500;
   color: #4b5563;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.logToggleActive {
-  background: #0044ba;
-  color: #ffffff;
-  box-shadow: 0 0 0 1px #0044ba;
+.logToggle:hover:not(.logToggleActive) {
+  background: #f3f4f6;
+  color: #1f2937;
 }
 
+.logToggleActive {
+  background: #0f63c9;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(15, 99, 201, 0.2);
+}
 /* 评估日志条目样式 */
 .logItem {
   background: #f9fafb;
@@ -714,4 +800,909 @@
   .analysisSection {
     padding: 10px 12px;
   }
+}
+.answerContentMain strong {
+  color: #1f6bd8; 
+  background-color: rgba(31, 107, 216, 0.08);
+  border-bottom: 2px solid #1f6bd8;
+  font-weight: 600;
+}
+
+.heroPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(420px, 1fr);
+  gap: 18px;
+  align-items: stretch;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.76));
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-medium);
+}
+
+.heroMain {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroMainTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.heroEyebrow,
+.sectionEyebrow,
+.answerHeaderEyebrow {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3b82f6; /* 把眉题改成较深的蓝色 */
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.16;
+  color: var(--text-primary);
+}
+
+.heroDescription {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.heroStatusBadge {
+  flex-shrink: 0;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.heroStatusDone {
+  background: rgba(220, 252, 231, 0.9);
+  color: #166534;
+  border-color: rgba(134, 239, 172, 0.9);
+}
+
+.heroStatusRunning {
+  background: rgba(219, 234, 254, 0.92);
+  color: #1d4ed8;
+  border-color: rgba(147, 197, 253, 0.95);
+}
+
+.heroStatusError {
+  background: rgba(254, 226, 226, 0.92);
+  color: #b91c1c;
+  border-color: rgba(252, 165, 165, 0.95);
+}
+
+.heroStatusIdle {
+  background: rgba(241, 245, 249, 0.92);
+  color: #475569;
+  border-color: rgba(203, 213, 225, 0.95);
+}
+
+.heroStatsCompact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.heroMiniCard {
+  min-height: 84px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroMiniLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.heroMiniValue {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0f172a;
+}
+
+.viewToolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 auto 22px auto;
+  width: 85vw;
+  max-width: 1600px;
+}
+
+.viewMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(226,232,240,0.95);
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+}
+
+.viewMetaItem {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.viewMetaDivider {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #93c5fd;
+}
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 6px;
+}
+
+.questionItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(176, 188, 204, 0.95);
+  transition: none;
+}
+
+.questionItem:hover {
+  transform: none;
+  border-color: rgba(176, 188, 204, 0.95);
+  box-shadow: none;
+}
+
+.questionItemMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.questionTag {
+  min-width: auto;
+  text-align: left;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #0f63c9;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.questionItemText {
+  color: #334155;
+  font-size: 16px;
+  line-height: 1.7;
+  flex: 1;
+}
+
+.ghostButton {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid #bfdbfe;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: none;
+}
+
+.ghostButton:hover {
+  background: #ffffff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+  transform: none;
+  box-shadow: none;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px 24px;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-width: 160px;
+  min-height: 44px;
+  padding: 11px 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.primaryAction {
+  border: 1px solid var(--brand-primary-strong);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-strong));
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+}
+
+.primaryAction:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(37, 99, 235, 0.28);
+}
+
+.secondaryAction {
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  background: rgba(255,255,255,0.94);
+  color: #334155;
+}
+
+.secondaryAction:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.questionMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.questionMetaLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.questionMetaInfo {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(191, 219, 254, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.questionMetaProgress {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.debugPanel {
+  margin: 0 24px 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fffaf5 0%, #fff7ed 100%);
+  border: 1px dashed #fb923c;
+}
+
+.debugTitle {
+  display: inline-block;
+  color: #c2410c;
+  margin-bottom: 8px;
+}
+
+.debugPre {
+  margin: 0;
+  white-space: pre-wrap;
+  max-height: 110px;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #7c2d12;
+}
+
+.evidenceGrid {
+  margin: 0 24px 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.evidenceCard {
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f8fdff 0%, #eef8ff 100%);
+  border: 1px solid #bae6fd;
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.08);
+}
+
+.evidenceCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.evidenceBadge {
+  color: #0f63c9;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.evidenceTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #075985;
+}
+
+.evidenceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evidenceQuote {
+  padding-left: 12px;
+  border-left: 3px solid #7dd3fc;
+  font-size: 13px;
+  line-height: 1.65;
+  font-style: italic;
+  color: #0c4a6e;
+}
+
+.answerHeaderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.answerHeaderTitle {
+  margin: 0;
+  font-size: 18px;
+  color: #0f172a;
+}
+
+.activeModelBadge {
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--brand-primary-soft), #eff6ff);
+  border: 1px solid #bfdbfe;
+  color: var(--brand-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .heroPanel,
+  .viewToolbar,
+  .questionItem,
+  .answerHeaderTop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heroStats {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .actionBar {
+    flex-direction: column;
+  }
+
+  .primaryAction,
+  .secondaryAction,
+  .ghostButton {
+    width: 100%;
+  }
+
+  .questionItemMain {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 28px;
+  }
+
+  .heroPanel {
+    padding: 22px 18px;
+  }
+
+  .debugPanel,
+  .evidenceGrid {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .answerContentMain {
+    margin-left: 16px;
+    margin-right: 16px;
+    padding: 16px;
+  }
+}
+.evidenceTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 16px 12px;
+}
+
+.evidenceTab {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.evidenceTab:hover {
+  color: #2563eb;
+  background: transparent;
+  border: none;
+}
+
+.evidenceTabActive {
+  color: #2563eb;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.evidenceEmpty {
+  margin: 0 16px 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px dashed rgba(148, 163, 184, 0.7);
+  background: rgba(248, 250, 252, 0.9);
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.debugWrapper {
+  margin: 14px 16px 12px;
+}
+
+.debugToggle {
+  width: 100%;
+  appearance: none;
+  border: 1px solid rgba(251, 146, 60, 0.24);
+  background: var(--warning-bg);
+  color: var(--warning-text);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.debugToggle:hover {
+  border-color: rgba(249, 115, 22, 0.35);
+  background: linear-gradient(180deg, #fff8f1 0%, #fff3e6 100%);
+}
+
+.debugToggleLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.debugToggleIcon {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(251, 146, 60, 0.14);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.debugToggleText {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.debugToggleArrow {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.debugPanel {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fffaf5 0%, #fff7ed 100%);
+  border: 1px dashed #fb923c;
+  overflow: hidden;
+}
+
+.analysisColumn .debugPanel {
+  margin: 0;
+}
+
+.answerToolbarTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.answerToolbarMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.answerMetaChip,
+.answerMetaChipMuted {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.answerMetaChip {
+  background: linear-gradient(135deg, #eff6ff, #e0ecff);
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.answerMetaChipMuted {
+  background: rgba(248, 250, 252, 0.92);
+  color: #475569;
+  border: 1px solid rgba(203, 213, 225, 0.95);
+}
+
+.answerToolbarBottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 640px) {
+  .answerToolbarTop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .answerToolbarBottom {
+    width: 100%;
+  }
+
+  .logToggleGroup {
+    width: 100%;
+  }
+
+  .logToggle {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+.pagePill {
+  appearance: none;
+  min-width: 52px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+}
+
+.pagePill:hover:not(:disabled) {
+  background: #ffffff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.pagePillActive {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-strong));
+  border-color: var(--brand-primary-strong);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+}
+
+.pagePillDisabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pagePillLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 900px) {
+  .heroPanel {
+    grid-template-columns: 1fr;
+  }
+
+  .heroMainTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .heroStatsCompact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .heroStatsCompact {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTitle {
+    font-size: 24px;
+  }
+}
+
+.markdownBody {
+  max-width: 78ch;
+  margin: 0 auto;
+  padding: 24px 26px 28px;
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.85;
+  word-break: break-word;
+}
+
+.markdownBody > *:first-child {
+  margin-top: 0;
+}
+
+.markdownBody > *:last-child {
+  margin-bottom: 0;
+}
+
+.markdownBody p {
+  margin: 0 0 14px;
+  color: #334155;
+}
+
+.markdownBody h1,
+.markdownBody h2,
+.markdownBody h3,
+.markdownBody h4 {
+  margin: 28px 0 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.markdownBody h1 {
+  font-size: 26px;
+}
+
+.markdownBody h2 {
+  font-size: 22px;
+}
+
+.markdownBody h3 {
+  font-size: 18px;
+}
+
+.markdownBody h4 {
+  font-size: 16px;
+}
+
+.markdownBody strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.markdownBody em {
+  color: #475569;
+}
+
+.markdownBody ul,
+.markdownBody ol {
+  margin: 0 0 16px;
+  padding-left: 24px;
+}
+
+.markdownBody li {
+  margin: 6px 0;
+  padding-left: 2px;
+}
+
+.markdownBody li > p {
+  margin-bottom: 8px;
+}
+
+.markdownBody blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 4px solid #93c5fd;
+  background: linear-gradient(180deg, #f8fbff 0%, #eff6ff 100%);
+  border-radius: 0 14px 14px 0;
+  color: #1e3a8a;
+}
+
+.markdownBody hr {
+  border: none;
+  height: 1px;
+  margin: 24px 0;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0),
+    rgba(148, 163, 184, 0.65),
+    rgba(148, 163, 184, 0)
+  );
+}
+
+.markdownBody a {
+  color: #1d4ed8;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(29, 78, 216, 0.25);
+}
+
+.markdownBody a:hover {
+  border-bottom-color: rgba(29, 78, 216, 0.6);
+}
+
+.markdownBody table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: #ffffff;
+}
+
+.markdownBody thead {
+  background: #f8fafc;
+}
+
+.markdownBody th,
+.markdownBody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.markdownBody th {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.markdownBody td {
+  color: #334155;
+}
+
+.markdownBody tr:last-child td {
+  border-bottom: none;
+}
+
+.markdownBody code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.92em;
+  padding: 0.16em 0.42em;
+  border-radius: 8px;
+  background: rgba(226, 232, 240, 0.55);
+  color: #0f172a;
+}
+
+.markdownBody pre {
+  margin: 18px 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border-radius: 16px;
+  background: #0f172a;
+  color: #e2e8f0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.markdownBody pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.markdownBody img {
+  max-width: 100%;
+  border-radius: 14px;
+  margin: 16px 0;
+}
+
+.markdownBody :where(h1, h2, h3, h4) + p {
+  margin-top: 0;
+}
+
+@media (max-width: 640px) {
+  .markdownBody {
+    max-width: 100%;
+    padding: 18px 16px 22px;
+    font-size: 13px;
+    line-height: 1.78;
+  }
+
+  .markdownBody h1 {
+    font-size: 22px;
+  }
+
+  .markdownBody h2 {
+    font-size: 19px;
+  }
+
+  .markdownBody h3 {
+    font-size: 16px;
+  }
+}
+
+.sidePanelSection {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(248,250,252,0.92) 100%);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
 }

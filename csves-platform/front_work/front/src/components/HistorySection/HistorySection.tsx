@@ -15,9 +15,9 @@ const HistorySection: React.FC = () => {
   // 获取记录类型的显示名称
   const getRecordTypeLabel = (type: RecordType) => {
     switch (type) {
-      case 'model': return '模型评估';
-      case 'text': return '文本评分';
-      case 'video': return '视频分析';
+      case 'model': return '模型评测';
+      case 'text': return '图文评测';
+      case 'video': return '视频评测';
       default: return '未知类型';
     }
   };
@@ -45,6 +45,7 @@ const HistorySection: React.FC = () => {
     } else {
       setExpandedRecord(record.id);
       setCurrentQAIndex(0);
+      const qaModelNames = Object.keys(record.qaByModel || {});
       // 根据记录类型设置默认模型
       if (record.type === 'model' && record.modelInfos && record.modelInfos.length > 0) {
         setActiveAnswerModel(record.modelInfos[0].displayName);
@@ -52,6 +53,10 @@ const HistorySection: React.FC = () => {
         setActiveAnswerModel(Object.keys(record.scoresByModel)[0]);
       } else if (record.type === 'video' && record.scoresByModel) {
         setActiveAnswerModel(Object.keys(record.scoresByModel)[0]);
+      } else if (qaModelNames.length > 0) {
+        setActiveAnswerModel(qaModelNames[0]);
+      } else {
+        setActiveAnswerModel(null);
       }
     }
   };
@@ -76,7 +81,7 @@ const HistorySection: React.FC = () => {
     if (record.type === 'model' && record.qaByModel) {
       activeList = record.qaByModel[activeAnswerModel] || [];
     }
-    // 文本和视频分析没有问答列表，不需要翻页
+    // 文本和视频评测没有问答列表，不需要翻页
     
     if (currentQAIndex < activeList.length - 1) setCurrentQAIndex(currentQAIndex + 1);
   };
@@ -93,7 +98,7 @@ const HistorySection: React.FC = () => {
     return (
       <div className={styles.emptyState}>
         <h3>历史记录</h3>
-        <p>暂无历史记录，完成一次模型评估后将会显示在这里</p>
+        <p>暂无历史记录，完成一次模型评测后将会显示在这里</p>
       </div>
     );
   }
@@ -109,6 +114,13 @@ const HistorySection: React.FC = () => {
 
       <div className={styles.historyList}>
         {records.map((record, index) => (
+          (() => {
+            const modelInfos = record.modelInfos ?? [];
+            const qaByModel = record.qaByModel ?? {};
+            const activeQaList = activeAnswerModel ? (qaByModel[activeAnswerModel] ?? []) : [];
+            const fallbackQuestion = record.type === 'text' ? '文本评分内容' : record.type === 'video' ? '视频评测内容' : '暂无问题';
+
+            return (
           <motion.div
             key={record.id}
             className={styles.historyCard}
@@ -121,9 +133,13 @@ const HistorySection: React.FC = () => {
               <div className={styles.recordInfo}>
                 <div className={styles.modelTagList}>
                   {/* 显示参与评估的模型标签 */}
-                  {record.modelInfos.map((m, i) => (
-                    <span key={i} className={styles.modelTag}>{m.displayName}</span>
-                  ))}
+                  {modelInfos.length > 0 ? (
+                    modelInfos.map((m, i) => (
+                      <span key={i} className={styles.modelTag}>{m.displayName}</span>
+                    ))
+                  ) : (
+                    <span className={styles.modelTag}>{getRecordTypeLabel(record.type)}</span>
+                  )}
                 </div>
                 <span className={styles.timestamp}>{formatDate(record.timestamp)}</span>
               </div>
@@ -169,11 +185,11 @@ const HistorySection: React.FC = () => {
                       {activeTab === "radar" ? (
                         <motion.div key="radar" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                           {/* 传递 scoresByModel 进行多模型对比展示 */}
-                          <RadarChart scoresByModel={record.scoresByModel} /> 
+                          <RadarChart scoresByModel={record.scoresByModel || {}} /> 
                         </motion.div>
                       ) : (
                         <motion.div key="table" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                          <DimensionTable scoresByModel={record.scoresByModel} />
+                          <DimensionTable scoresByModel={record.scoresByModel || {}} />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -186,7 +202,7 @@ const HistorySection: React.FC = () => {
                       {/* 左翻页箭头 */}
                       <button 
                         className={styles.arrow} 
-                        onClick={() => prevPage(record, activeAnswerModel)}
+                        onClick={() => prevPage()}
                       >
                         <svg width="54" height="58" viewBox="0 0 24 24" fill="none">
                           <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -201,40 +217,38 @@ const HistorySection: React.FC = () => {
                             <span className={styles.questionNumber}>Q{currentQAIndex + 1}</span>
                             <h3 className={styles.questionText}>
                               {/* 确保当前模型和问题索引有效 */}
-                              {record.qaByModel[activeAnswerModel]?.[currentQAIndex]?.question}
+                              {activeQaList[currentQAIndex]?.question || fallbackQuestion}
                             </h3>
+                          </div>
+                          
+                          {/* 模型切换 Tabs (胶囊按钮) */}
+                          <div className={styles.logToggleGroup}>
+                            {modelInfos.map((info) => (
+                              <button
+                                key={info.displayName}
+                                className={`${styles.logToggle} ${
+                                  activeAnswerModel === info.displayName ? styles.logToggleActive : ""
+                                }`}
+                                onClick={() => setActiveAnswerModel(info.displayName)}
+                              >
+                                {info.displayName}
+                              </button>
+                            ))}
                           </div>
                         </div>
 
-                        {/* B. 回答区域 (包含模型切换器) */}
+                        {/* B. 回答区域 */}
                         <div className={styles.answerSection}>
-                          {/* 模型切换 Tabs (胶囊按钮) */}
-                          <div className={styles.answerHeader}>
-                            <div className={styles.logToggleGroup}>
-                              {record.modelInfos.map((info) => (
-                                <button
-                                  key={info.displayName}
-                                  className={`${styles.logToggle} ${
-                                    activeAnswerModel === info.displayName ? styles.logToggleActive : ""
-                                  }`}
-                                  onClick={() => setActiveAnswerModel(info.displayName)}
-                                >
-                                  {info.displayName}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
                           {/* Markdown 回答内容 (内部滚动) */}
                           <div className={styles.answerContentMain}>
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                              {record.qaByModel[activeAnswerModel]?.[currentQAIndex]?.answer || "该模型在当前问题下暂无回答"}
+                              {activeQaList[currentQAIndex]?.answer || "该模型在当前问题下暂无回答"}
                             </ReactMarkdown>
                           </div>
 
                           {/* 底部进度条 */}
                           <div className={styles.lineCounter}>
-                            {record.qaByModel[activeAnswerModel]?.map((_, i) => (
+                            {activeQaList.map((_, i) => (
                               <button
                                 key={i}
                                 onClick={() => goToPage(i)}
@@ -248,7 +262,7 @@ const HistorySection: React.FC = () => {
                       {/* 右翻页箭头 */}
                       <button 
                         className={styles.arrow} 
-                        onClick={() => nextPage(record, activeAnswerModel)}
+                        onClick={() => nextPage()}
                       >
                         <svg width="54" height="58" viewBox="0 0 24 24" fill="none">
                           <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -261,6 +275,8 @@ const HistorySection: React.FC = () => {
               )}
             </AnimatePresence>
           </motion.div>
+            );
+          })()
         ))}
       </div>
     </div>

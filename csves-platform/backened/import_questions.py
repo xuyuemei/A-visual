@@ -71,7 +71,7 @@ def main():
     input_file = "/data/hlt/A-visual/mark/500_question_answer.xlsx"  # 请替换为实际文件路径
     
     # 输出JSON文件路径
-    output_file = "/data/hlt/A-visual/bishework/backened/reserved_questions.json"
+    output_file = "/data/hlt/A-visual/csves-platform/backened/reserved_questions.json"
     
     try:
         # 加载保留的问题

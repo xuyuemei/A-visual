@@ -68,22 +68,9 @@ const ComparePool: React.FC<ComparePoolProps> = ({ max = 4, onModelsChange }) =>
       <div className={styles.poolHeader}>
         <div className={styles.poolTitleBlock}>
           <div className={styles.poolTitle}>{t('evaluate.comparePool.title')}</div>
-          <div className={styles.poolSubtitle}>
-            {t('evaluate.comparePool.subtitle', { max })}
-          </div>
         </div>
 
         <div className={styles.poolActions}>
-          <button
-            className={styles.ghostBtn}
-            onClick={handleAddClick}
-            type="button"
-            title={t('evaluate.comparePool.selectModels')}
-          >
-            <PlusOutlined />
-            {t('evaluate.comparePool.selectModels')}
-          </button>
-
           <button
             className={styles.ghostBtn}
             onClick={clearAll}
@@ -95,27 +82,6 @@ const ComparePool: React.FC<ComparePoolProps> = ({ max = 4, onModelsChange }) =>
           </button>
         </div>
       </div>
-
-      {/* Selected tags */}
-      {selectedModels.length > 0 && (
-        <div className={styles.selectedBar}>
-          {selectedModels.map((m, idx) => {
-            const key =
-              (m as any).id ??
-              (m as any).value ??
-              (m as any).model ??
-              `${m.displayName}-${m.source}-${idx}`;
-
-            return (
-              <span key={key} className={styles.tag}>
-                {m.displayName}
-                <span className={styles.tagDot}>·</span>
-                {m.source}
-              </span>
-            );
-          })}
-        </div>
-      )}
 
       {/* Grid */}
       <div className={styles.grid}>

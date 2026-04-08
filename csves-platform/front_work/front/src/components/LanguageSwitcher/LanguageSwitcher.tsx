@@ -1,40 +1,28 @@
 import React from 'react';
-import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { GlobalOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
+import { CustomTranslationIcon } from './CustomTranslationIcon';
+import styles from './LanguageSwitcher.module.css';
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
   
-  const languages = [
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-  ];
-  
-  const handleLanguageChange = (lang: string) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem('language', lang);
+  const handleLanguageChange = () => {
+    const nextLang = i18n.language === 'zh' ? 'en' : 'zh';
+    i18n.changeLanguage(nextLang);
+    localStorage.setItem('language', nextLang);
   };
   
   return (
-    <Select
-      value={i18n.language}
-      onChange={handleLanguageChange}
-      style={{ 
-        width: 120, 
-        marginRight: '16px',
-        height: '40px'
-      }}
-      suffixIcon={<GlobalOutlined />}
-      placeholder="Language"
-      size="middle"
-    >
-      {languages.map(lang => (
-        <Select.Option key={lang.code} value={lang.code}>
-          {lang.flag} {lang.name}
-        </Select.Option>
-      ))}
-    </Select>
+    <Tooltip title={i18n.language === 'zh' ? 'Switch to English' : '切换至中文'} placement="bottom">
+      <div 
+        className={styles.iconBtn} 
+        onClick={handleLanguageChange}
+        title="Toggle Language"
+      >
+        <CustomTranslationIcon currentLang={i18n.language} />
+      </div>
+    </Tooltip>
   );
 };
 

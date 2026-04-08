@@ -129,7 +129,7 @@ def run_comparison_test(num_questions=10, models=["gpt-3.5-turbo", "glm-4"]):
     
     # 保存结果
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = f"/data/hlt/A-visual/bishework/backened/test_results_{timestamp}.json"
+    output_file = f"/data/hlt/A-visual/csves-platform/backened/test_results_{timestamp}.json"
     
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
@@ -139,7 +139,7 @@ def run_comparison_test(num_questions=10, models=["gpt-3.5-turbo", "glm-4"]):
     
     return results
 
-def save_test_summary(results, output_file="/data/hlt/A-visual/bishework/backened/test_summary.txt"):
+def save_test_summary(results, output_file="/data/hlt/A-visual/csves-platform/backened/test_summary.txt"):
     """保存测试摘要"""
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write("🧪 问题质量对比测试摘要\n")
@@ -166,7 +166,7 @@ def main():
     print("=" * 50)
     
     # 检查保留问题文件是否存在
-    if not os.path.exists("/data/hlt/A-visual/bishework/backened/reserved_questions.json"):
+    if not os.path.exists("/data/hlt/A-visual/csves-platform/backened/reserved_questions.json"):
         print("❌ 未找到保留问题文件，请先运行 import_questions.py")
         print("💡 运行命令: python import_questions.py")
         return
